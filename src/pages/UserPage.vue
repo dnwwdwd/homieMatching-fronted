@@ -58,7 +58,7 @@ const userLogout = async () => {
 
 // 跳转项目前端源码
 const toProjectFontendCode = () => {
-  window.open("https://github.com/dnwwdwd/homieMatching-frontend", "_blank");
+  window.open("https://github.com/dnwwdwd/homieMatching-fronted", "_blank");
 };
 
 // 跳转项目后端源码
