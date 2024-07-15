@@ -8,10 +8,12 @@
 
 <script setup>
 import {useRouter} from "vue-router";
-import TeamCardList from "../components/TeamCardList.vue";
-import myAxios from "../plugins/myAxios";
+import TeamCardList from "../../components/TeamCardList.vue";
+
 import {onMounted, ref} from "vue";
 import {showToast} from "vant";
+import myAxios from "../../plugins/myAxios";
+
 
 const router = useRouter();
 

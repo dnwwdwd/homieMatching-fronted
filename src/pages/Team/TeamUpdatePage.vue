@@ -77,7 +77,7 @@
 <script setup>
 import {useRoute, useRouter} from "vue-router";
 import {onMounted, ref} from "vue";
-import myAxios from "../plugins/myAxios.ts";
+import myAxios from "../../plugins/myAxios.ts";
 import {showToast} from "vant";
 import {useStore} from "vuex";
 

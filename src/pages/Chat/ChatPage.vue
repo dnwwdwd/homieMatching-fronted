@@ -49,8 +49,8 @@ import {nextTick, onMounted, ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {showFailToast} from "vant";
 
-import {getCurrentUser} from "../services/user.ts";
-import myAxios, {URL} from "../plugins/myAxios.ts";
+import {getCurrentUser} from "../../services/user.ts";
+import myAxios, {URL} from "../../plugins/myAxios.ts";
 
 const route = useRoute();
 const router = useRouter();

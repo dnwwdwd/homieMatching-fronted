@@ -27,11 +27,11 @@ import * as VueRouter from 'vue-router';
 import routes from './config/route.ts';
 import store from './config/store.ts';
 import BasicLayout from "./layouts/BasicLayout.vue";
-import ChatPage from "./pages/ChatPage.vue";
+import ChatPage from "./pages/Chat/ChatPage.vue";
 import UserLoginPage from "./pages/UserLoginPage.vue";
-import UserRegisterPage from "./pages/UserRegisterPage.vue";
+import UserRegisterPage from "./pages/User/UserRegisterPage.vue";
 import RegisterTagsPage from "./pages/RegisterTagsPage.vue";
-import UserIntroPage from "./pages/UserIntroPage.vue";
+import UserIntroPage from "./pages/User/UserIntroPage.vue";
 
 const app= createApp(App);
 app.use(Button);

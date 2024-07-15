@@ -32,14 +32,6 @@
           placeholder="请再输入一次密码"
           :rules="[{ required: true, message: '请再输入一次密码' }]"
       />
-<!--      <van-field
-        v-model="planetCode"
-        type="text"
-        name="planetCode"
-        label="编号"
-        placeholder="请填写编号"
-        :rules="[{ required: true, message: '请填写编号' }]"
-    />-->
       <van-field
           v-model="username"
           name="username"
@@ -47,29 +39,6 @@
           placeholder="请填写用户名"
           :rules="[{ required: true, message: '请填写用户名' }]"
       />
-<!--      <van-field
-          v-model="gender"
-          type="text"
-          name="性别"
-          label="性别"
-          placeholder="请填写性别"
-          :rules="[{ required: true, message: '请填写性别' }]"
-      />-->
-<!--      <van-field
-          v-model="phone"
-          name="phone"
-          label="手机号"
-          placeholder="手机号"
-          :rules="[{ required: true, message: '请填写手机号' }]"
-      />
-      <van-field
-          v-model="avatarUrl"
-          type="text"
-          name="头像"
-          label="头像"
-          placeholder="请填写头像"
-          :rules="[{ required: true, message: '请填写头像' }]"
-      />-->
       <van-field
           v-model="longitude"
           type="text"
@@ -87,6 +56,8 @@
           :rules="[{ required: true, message: '请填写维度' }]"
       />
     </van-cell-group>
+
+
     <div style="margin: 16px;">
       <van-button round block type="primary" native-type="submit">
         注册
@@ -112,6 +83,7 @@ const phone = ref('');
 const longitude = ref('');
 const dimension = ref('');
 
+
 const onSubmit = () => {
   const registerUserParam = {
     userAccount: userAccount.value,
@@ -124,7 +96,7 @@ const onSubmit = () => {
     phone: phone.value,
     longitude: longitude.value,
     dimension: dimension.value,
-};
+  };
 
   router.push({
     path: '/user/registerTags',

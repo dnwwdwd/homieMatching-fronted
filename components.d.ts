@@ -44,5 +44,7 @@ declare module 'vue' {
     VanTabs: typeof import('vant/es')['Tabs']
     VanTag: typeof import('vant/es')['Tag']
     VanTreeSelect: typeof import('vant/es')['TreeSelect']
+    VerifyPoints: typeof import('./src/components/Verify/VerifyPoints.vue')['default']
+    VerifySlide: typeof import('./src/components/Verify/VerifySlide.vue')['default']
   }
 }

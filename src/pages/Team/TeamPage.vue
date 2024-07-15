@@ -7,14 +7,14 @@
     </van-tabs>
     <van-button class="addTeamButton" icon="plus" type="primary" @click="doAddTeam"/>
     <team-card-list :team-list="teamList"></team-card-list>
-    <van-empty v-show="!teamList || teamList.length < 1" description="数据为空" />
+    <van-empty v-show="!teamList || teamList.length < 1" description="数据为空"/>
   </div>
 </template>
 
 <script setup>
 import {useRouter} from "vue-router";
-import TeamCardList from "../components/TeamCardList.vue";
-import myAxios from "../plugins/myAxios";
+import TeamCardList from "../../components/TeamCardList.vue";
+import myAxios from "../../plugins/myAxios";
 import {onMounted, ref} from "vue";
 import {showToast} from "vant";
 
@@ -47,7 +47,7 @@ const listTeam = async (val = '', status = 0) => {
 }
 
 // 页面加载时查询所有队伍
-onMounted( async () => {
+onMounted(async () => {
   listTeam();
 })
 
@@ -70,13 +70,13 @@ const onSearch = (val) => {
 </script>
 
 <style scoped>
-  .addTeamButton{
-    position: fixed;
-    bottom: 60px;
-    height: 50px;
-    left: 12px;
-    width: 50px;
-    border-radius: 50%;
-    z-index: 9999;
-  }
+.addTeamButton {
+  position: fixed;
+  bottom: 60px;
+  height: 50px;
+  left: 12px;
+  width: 50px;
+  border-radius: 50%;
+  z-index: 9999;
+}
 </style>

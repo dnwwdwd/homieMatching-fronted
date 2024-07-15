@@ -7,11 +7,11 @@
 <script setup lang="ts">
 
 import {onMounted, ref} from "vue";
-import FriendCardList from "../components/FriendCardList.vue";
+import FriendCardList from "../../components/FriendCardList.vue";
 import {showToast} from "vant";
-import myAxios from "../plugins/myAxios.ts";
+import myAxios from "../../plugins/myAxios.ts";
 import {useRoute} from "vue-router";
-import {UserType} from "../models/user";
+import {UserType} from "../../models/user";
 
 const loading = ref(true);
 const friendList = ref();
