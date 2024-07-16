@@ -1,11 +1,13 @@
 import Index from '../pages/Index.vue';
 import Team from '../pages/Team/TeamPage.vue';
+import UserSettingPage from '../pages/User/UserSettingPage.vue';
 import UserPage from '../pages/User/UserPage.vue';
 import SearchPage from '../pages/User/SearchPage.vue';
 import UserEditPage from "../pages/User/UserEditPage.vue";
 import SearchResultPage from "../pages/User/SearchResultPage.vue";
 import UserLoginPage from "../pages/UserLoginPage.vue";
 import TeamAddPage from "../pages/Team/TeamAddPage.vue";
+import BlogPage from "../pages/Blog/BlogPage.vue";
 import TeamUpdatePage from "../pages/Team/TeamUpdatePage.vue";
 import UserUpdatePage from "../pages/User/UserUpdatePage.vue";
 import UserJoinPage from "../pages/Team/UserTeamJoinPage.vue";
@@ -20,12 +22,14 @@ import ChatPage from "../pages/Chat/ChatPage.vue";
 const routes = [
     { path: '/', component: Index},
     { path: '/team', title:'找队伍', component: Team },
+    { path: '/blog', title:'找队伍', component: BlogPage },
     { path: '/friend', title:'好友', component: FriendPage },
     { path: '/chat', title:'聊天界面', component: ChatPage, meta: {layout: 'chat'} },
     { path: '/team/introduce', title:'队伍详情', component: TeamIntroPage },
     { path: '/team/update', title:'队伍信息修改', component: TeamUpdatePage },
     { path: '/team/add', title:'创建队伍', component: TeamAddPage },
     { path: '/user', title:'个人页面', component: UserPage },
+    { path: '/user/setting', title:'个人页面', component: UserSettingPage },
     { path: '/search', title:'搜索', component: SearchPage },
     { path: '/user/listByTag', title:'搜索结果', component: SearchResultPage },
     { path: '/user/intro', title:'用户详情', component: UserIntroPage, meta: {layout: 'user-intro'} },

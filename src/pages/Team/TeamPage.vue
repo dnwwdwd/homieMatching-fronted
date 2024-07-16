@@ -1,4 +1,9 @@
 <template>
+  <van-notice-bar
+      left-icon="volume-o"
+      color="#1989fa" background="#ecf9ff"
+      text="欢迎使用homie匹配，在这里你可以寻找你的学习homie和生活homie甚至是灵魂伴侣，同时本系统支持匹配相同爱好的homie和聊天功能，但是要遵纪守法哦。最后欢迎大家提出反馈和建议！"
+  />
   <div id="teamPage">
     <van-search v-model="searchText" placeholder="搜索队伍" @search="onSearch"/>
     <van-tabs v-model:active="public" @change="onTabChange">
