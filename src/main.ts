@@ -32,6 +32,7 @@ import UserLoginPage from "./pages/UserLoginPage.vue";
 import UserRegisterPage from "./pages/User/UserRegisterPage.vue";
 import RegisterTagsPage from "./pages/RegisterTagsPage.vue";
 import UserIntroPage from "./pages/User/UserIntroPage.vue";
+import 'bytemd/dist/index.css'
 
 const app= createApp(App);
 app.use(Button);

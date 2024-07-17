@@ -9,6 +9,9 @@ declare module 'vue' {
   export interface GlobalComponents {
     BlogCardList: typeof import('./src/components/BlogCardList.vue')['default']
     FriendCardList: typeof import('./src/components/FriendCardList.vue')['default']
+    MdEditor: typeof import('./src/components/MdEditor.vue')['default']
+    MdViewer: typeof import('./src/components/MdViewer.vue')['default']
+    MDViewer: typeof import('./src/components/MDViewer.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TeamCardList: typeof import('./src/components/TeamCardList.vue')['default']

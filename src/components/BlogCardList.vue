@@ -38,6 +38,9 @@
 
 <script setup lang="ts">
 import {BLogType} from "../models/blog";
+import {useRouter} from "vue-router";
+
+const router = useRouter();
 
 interface BlogCardListProps {
   blogList: BLogType[]
@@ -45,10 +48,12 @@ interface BlogCardListProps {
 
 withDefaults(defineProps<BlogCardListProps>(), {
   loading: true,
-})
+});
 
 const toBlog = (id: number) => {
-  console.log(id);
+  router.push({
+    path: `/blog/detail/${id}`
+  });
 };
 
 </script>

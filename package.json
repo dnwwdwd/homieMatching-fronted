@@ -9,6 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@bytemd/plugin-gfm": "^1.21.0",
+    "@bytemd/plugin-highlight": "^1.21.0",
+    "@bytemd/vue-next": "^1.21.0",
     "axios": "^1.7.2",
     "cors": "^2.8.5",
     "crypto-js": "^4.2.0",
