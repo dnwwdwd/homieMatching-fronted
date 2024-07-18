@@ -8,6 +8,7 @@ import SearchResultPage from "../pages/User/SearchResultPage.vue";
 import UserLoginPage from "../pages/UserLoginPage.vue";
 import TeamAddPage from "../pages/Team/TeamAddPage.vue";
 import BlogPage from "../pages/Blog/BlogPage.vue";
+import BlogCreatePage from "../pages/Blog/BlogCreatePage.vue";
 import BlogDetailPage from "../pages/Blog/BlogDetailPage.vue";
 import TeamUpdatePage from "../pages/Team/TeamUpdatePage.vue";
 import UserUpdatePage from "../pages/User/UserUpdatePage.vue";
@@ -24,6 +25,7 @@ const routes = [
     { path: '/', component: Index},
     { path: '/team', title:'找队伍', component: Team },
     { path: '/blog', title:'博客', component: BlogPage },
+    { path: '/blog/create', title:'发布博客', component: BlogCreatePage },
     { path: '/blog/detail/:id', title:'博客详情', component: BlogDetailPage },
     { path: '/friend', title:'好友', component: FriendPage },
     { path: '/chat', title:'聊天界面', component: ChatPage, meta: {layout: 'chat'} },

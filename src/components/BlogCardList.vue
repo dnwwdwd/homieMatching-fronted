@@ -13,6 +13,9 @@
       <template #value>
         <van-text-ellipsis :content="blog.title" rows="2"/>
         <div style="margin-top: 60px">
+          <van-icon name="eye-o" size="14">
+            <span style="margin-left: 2px">{{ blog.viewNum }}</span>
+          </van-icon>
           <van-icon name="good-job-o" size="14">
             <span style="margin-left: 2px">{{ blog.likeNum }}</span>
           </van-icon>

@@ -52,6 +52,7 @@ declare module 'vue' {
     VanTag: typeof import('vant/es')['Tag']
     VanTextEllipsis: typeof import('vant/es')['TextEllipsis']
     VanTreeSelect: typeof import('vant/es')['TreeSelect']
+    VanUploader: typeof import('vant/es')['Uploader']
     VerifyPoints: typeof import('./src/components/Verify/VerifyPoints.vue')['default']
     VerifySlide: typeof import('./src/components/Verify/VerifySlide.vue')['default']
   }
