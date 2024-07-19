@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     BlogCardList: typeof import('./src/components/BlogCardList.vue')['default']
+    BlogUserIntro: typeof import('./src/components/BlogUserIntro.vue')['default']
     FriendCardList: typeof import('./src/components/FriendCardList.vue')['default']
     MdEditor: typeof import('./src/components/MdEditor.vue')['default']
     MdViewer: typeof import('./src/components/MdViewer.vue')['default']

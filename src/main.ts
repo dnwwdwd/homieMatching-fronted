@@ -32,6 +32,7 @@ import UserLoginPage from "./pages/UserLoginPage.vue";
 import UserRegisterPage from "./pages/User/UserRegisterPage.vue";
 import RegisterTagsPage from "./pages/RegisterTagsPage.vue";
 import UserIntroPage from "./pages/User/UserIntroPage.vue";
+import BlogDetailPage from "./pages/Blog/BlogDetailPage.vue";
 import 'bytemd/dist/index.css'
 
 const app= createApp(App);
@@ -69,5 +70,6 @@ app.component("login-layout", UserLoginPage);
 app.component("register-layout", UserRegisterPage);
 app.component("register-tags-layout", RegisterTagsPage);
 app.component("user-intro-layout", UserIntroPage);
+app.component("blog-detail-layout", BlogDetailPage);
 app.use(router);
 app.mount('#app')

@@ -26,7 +26,7 @@ const routes = [
     { path: '/team', title:'找队伍', component: Team },
     { path: '/blog', title:'博客', component: BlogPage },
     { path: '/blog/create', title:'发布博客', component: BlogCreatePage },
-    { path: '/blog/detail/:id', title:'博客详情', component: BlogDetailPage },
+    { path: '/blog/detail/:id', title:'博客详情', component: BlogDetailPage, meta: {layout: 'blog-detail'} },
     { path: '/friend', title:'好友', component: FriendPage },
     { path: '/chat', title:'聊天界面', component: ChatPage, meta: {layout: 'chat'} },
     { path: '/team/introduce', title:'队伍详情', component: TeamIntroPage },

@@ -1,0 +1,114 @@
+<template>
+  <div class="user-top">
+    <div class="user-profile-top">
+      <van-image
+          round
+          width="4.5rem"
+          height="4.5rem"
+          :src="blogUser.avatarUrl"
+          style="margin-top: 15px; margin-left: 15px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);"
+      />
+      <div class="user-property-top">
+        <span style="font-size: 20px; margin-left: 25px; font-weight: bold">{{ blogUser.username }}</span>
+
+        <div class="user-property-bottom">
+          <div class="user-property-bottom-container">
+            <span class="data">0</span>
+            <span class="data-text">博客</span>
+          </div>
+          <div class="user-property-bottom-container">
+            <span class="data">0</span>
+            <span class="data-text">粉丝</span>
+          </div>
+          <div class="user-property-bottom-container">
+            <span class="data">0</span>
+            <span class="data-text">浏览量</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <van-tag
+        plain
+        color="#ffe1e1"
+        text-color="#ad0000"
+        style="margin-right: 8px;"
+        v-for="tag in blogUser.tags">
+      {{ tag }}
+    </van-tag>
+    <van-text-ellipsis
+        style="padding: 2px; font-size: 14px"
+        rows="2"
+        :content="blogUser.profile"
+        expand-text="展开"
+        collapse-text="收起"
+    />
+
+
+  </div>
+
+
+</template>
+
+<script setup lang="ts">
+
+import {BlogUserType} from "../models/blogUser";
+
+interface BlogUserIntroProps {
+  blogUser: BlogUserType
+}
+
+withDefaults(defineProps<BlogUserIntroProps>(), {
+  loading: true
+});
+
+</script>
+
+<style scoped>
+.user-top {
+  width: 90%;
+  height: 170px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+.user-profile-top {
+  display: flex;
+  height: 96px;
+}
+
+.user-property-top {
+  margin-top: 10px;
+  margin-left: 10px;
+  background: white;
+  width: 216px;
+  height: 100px;
+}
+
+.user-property-bottom {
+  width: 100%;
+  height: 70px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.data{
+  font-size: 20px;
+}
+
+.data-text{
+  font-size: 12px;
+  color: darkgrey;
+}
+
+.user-property-bottom-container {
+  width: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+</style>

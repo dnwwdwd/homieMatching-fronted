@@ -1,5 +1,4 @@
 <template>
-
   <van-field
       v-model="blog.title"
       label="标题"
@@ -54,9 +53,8 @@ import {showToast} from "vant";
 const blog = ref({
   title: '',
   content: '',
-  // 确保所有字段都被正确初始化
   coverImage: '',
-  images: '',
+  images: [],
   tags: [],
 });
 

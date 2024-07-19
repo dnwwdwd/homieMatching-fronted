@@ -22,7 +22,9 @@
         </van-space>
       </div>
 
+
     </div>
+
     <div class="user-profile-bottom">
       <div class="user-profile-bottom-container">
         <span class="data">0</span>
@@ -149,20 +151,12 @@ onMounted(async () => {
 }
 
 .data{
-  font-size: 24px;
+  font-size: 20px;
 }
 
 .data-text{
-  font-size: 15px;
+  font-size: 12px;
   color: darkgrey;
-}
-
-.user-profile-bottom-container{
-  width: 50px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 .user-middle {
@@ -197,4 +191,13 @@ onMounted(async () => {
   margin-top: 15px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
+.user-profile-bottom-container{
+  width: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 </style>
