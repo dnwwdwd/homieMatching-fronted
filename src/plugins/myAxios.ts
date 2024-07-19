@@ -5,7 +5,7 @@ const isDev = process.env.NODE_ENV === 'development';
 export const URL = 'backendhm.hejiajun.icu/api';
 
 const myAxios = axios.create({
-    baseURL: isDev ? 'http://localhost:8081/api' : 'http://backendhm.hejiajun.icu/api',
+    baseURL: isDev ? 'http://localhost:8081/api' : '线上地址',
 })
 
 myAxios.defaults.withCredentials = true; //设置为true
