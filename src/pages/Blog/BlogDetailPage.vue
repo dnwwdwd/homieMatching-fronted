@@ -10,6 +10,14 @@
 
   <blog-user-intro :blogUser="blog.blogUser"/>
   <md-viewer :content="blog.content" style="width: 100%; margin: 10px"/>
+  <van-tag
+      plain
+      color="#ffe1e1"
+      text-color="#ad0000"
+      style="margin-right: 8px;"
+      v-for="tag in blog.tags">
+    {{ tag }}
+  </van-tag>
 
   <van-sticky>
     <van-tabbar class="tabbar-content">
