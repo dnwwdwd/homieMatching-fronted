@@ -5,6 +5,6 @@ export type BlogUserType = {
     profile: string;
     fanNum: number;
     blogNum: number;
-    viewNum: number;
+    blogViewNum: number;
     tags: string;
 }

@@ -10,72 +10,66 @@
     </van-list>
   </van-pull-refresh>
 
+  <van-floating-bubble
+      axis="xy"
+      icon="plus"
+      magnetic="x"
+      @click="onClick"
+  />
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue";
+import {ref, watchEffect} from "vue";
 import BlogCardList from "../../components/BlogCardList.vue";
+import {useRouter} from "vue-router";
+import myAxios from "../../plugins/myAxios";
+import {showToast} from "vant";
+import {BlogType} from "../../models/blog";
 
-const blogList = ref([
-  {
-    id: 9,
-    title: '宝塔部署 Vue + Spring Boot 保姆级教程',
-    image: 'https://www.keaitupian.cn/cjpic/frombd/0/253/936677050/470164789.jpg',
-    coverImage: 'https://www.keaitupian.cn/cjpic/frombd/0/253/936677050/470164789.jpg',
-    content: '我很帅我很帅我很帅我很帅我很帅我很帅我很帅',
-    tags: ['java','go','python','redis','前端','java','go','python','redis','前端'],
-  },
-  {
-    id: 9,
-    title: '宝塔部署 Vue + Spring Boot 保姆级教程',
-    image: 'https://www.keaitupian.cn/cjpic/frombd/0/253/936677050/470164789.jpg',
-    coverImage: 'https://www.keaitupian.cn/cjpic/frombd/0/253/936677050/470164789.jpg',
-    content: '我很帅我很帅我很帅我很帅我很帅我很帅我很帅',
-    tags: ['java','go'],
-  },
-  {
-    id: 9,
-    title: '宝塔部署 Vue + Spring Boot 保姆级教程',
-    image: 'https://www.keaitupian.cn/cjpic/frombd/0/253/936677050/470164789.jpg',
-    coverImage: 'https://www.keaitupian.cn/cjpic/frombd/0/253/936677050/470164789.jpg',
-    content: '我很帅我很帅我很帅我很帅我很帅我很帅我很帅',
-    tags: ['java','go'],
-  },
-  {
-    id: 9,
-    title: '宝塔部署 Vue + Spring Boot 保姆级教程',
-    image: 'https://www.keaitupian.cn/cjpic/frombd/0/253/936677050/470164789.jpg',
-    coverImage: 'https://www.keaitupian.cn/cjpic/frombd/0/253/936677050/470164789.jpg',
-    content: '我很帅我很帅我很帅我很帅我很帅我很帅我很帅',
-    tags: ['java','go'],
-  },
-  {
-    id: 9,
-    title: '宝塔部署 Vue + Spring Boot 保姆级教程',
-    image: 'https://www.keaitupian.cn/cjpic/frombd/0/253/936677050/470164789.jpg',
-    coverImage: 'https://www.keaitupian.cn/cjpic/frombd/0/253/936677050/470164789.jpg',
-    content: '我很帅我很帅我很帅我很帅我很帅我很帅我很帅',
-    tags: ['java','go'],
-  },
-]);
+const router = useRouter();
+
+const blogList = ref<BlogType[]>([]);  // 初始化为空数组
 
 const finished = ref(false);
 const loading = ref(false);
 const refreshed = ref(false);
 
-console.log(new Date());
+const loadBlogList = async () => {
+  const res : any = await myAxios.post('/blog/list', {
+    pageNum: 1,
+    pageSize: 20,
+  });
+  if (res?.code === 0) {
+    blogList.value = res?.data.map((blog: BlogType) => {
+      if (blog.tags) {
+        blog.tags = JSON.parse(blog.tags);
+      }
+      return blog;
+    });
+  } else {
+    showToast('加载失败');
+  }
+};
+
+watchEffect(() => {
+  loadBlogList();
+});
 
 const onLoad = () => {
   loading.value = false;
 };
 
-
-const onRefresh = () => {
-
+const onRefresh = async () => {
+  await loadBlogList();
+  refreshed.value = false;
 };
 
+const onClick = () => {
+  router.push({
+    path: '/blog/create'
+  });
+};
 </script>
 
 <style scoped>
-
 </style>

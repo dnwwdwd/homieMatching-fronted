@@ -1,6 +1,6 @@
 import {BlogUserType} from "./blogUser";
 
-export type BLogType = {
+export type BlogType = {
     id: number;
     title: string;
     content: string;
@@ -11,6 +11,6 @@ export type BLogType = {
     likeNum: number;
     starNum: number;
     commentNum: number;
-    blogUser: BlogUserType;
+    blogUserVO: BlogUserType;
     createTime: string;
 }

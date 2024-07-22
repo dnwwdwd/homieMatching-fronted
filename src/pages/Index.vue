@@ -118,7 +118,7 @@ const onSearch = async (searchText: string) => {
   let userListData;
   loading.value = true;
 
-  const res = await myAxios.get('/user/searchNearby', {
+  const res : any = await myAxios.get('/user/searchNearby', {
     params: { radius: searchText }
   });
 

@@ -41,6 +41,7 @@
 
   <md-editor :value="blog.content" :mode="`split`" :handle-change="onMdChange"/>
 
+  <van-button type="success" @click="createBlog">发布博客</van-button>
 </template>
 
 
@@ -49,6 +50,9 @@ import MdEditor from "../../components/MdEditor.vue";
 import {ref} from "vue";
 import myAxios from "../../plugins/myAxios";
 import {showToast} from "vant";
+import {useRouter} from "vue-router";
+
+const router = useRouter();
 
 const blog = ref({
   title: '',
@@ -82,6 +86,7 @@ const delBlogTag = (value: string) => {
 
 const afterRead = (file: File) => {
   console.log(file);
+  console.log(coverImageList.value);
   uploadUploadCoverImage(file);
 };
 
@@ -96,7 +101,7 @@ const uploadUploadCoverImage = async (file) => {
   if (res?.code === 0 && res.data && res.data.length > 0) {
     showToast('图片上传成功');
     // 将图片设置到 blog 中
-    blog.value.coverImage = coverImageList.value[0];
+    blog.value.coverImage = res.data;
   } else {
     showToast('图片上传失败' + (res.description ? `，${res.description}` : ''));
   }
@@ -107,6 +112,18 @@ const onOversize = (file) => {
   showToast('文件大小不能超过 500 MB');
 };
 
+
+const createBlog = async () => {
+  const res = await myAxios.post('/blog/add', blog.value);
+  if (res?.code === 0) {
+    showToast('发布成功');
+    router.push({
+
+    });
+  } else {
+    showToast('发布失败');
+  }
+};
 </script>
 
 <style scoped>

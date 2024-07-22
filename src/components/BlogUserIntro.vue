@@ -13,15 +13,15 @@
 
         <div class="user-property-bottom">
           <div class="user-property-bottom-container">
-            <span class="data">0</span>
+            <span class="data">{{blogUser.blogNum}}</span>
             <span class="data-text">博客</span>
           </div>
           <div class="user-property-bottom-container">
-            <span class="data">0</span>
+            <span class="data">{{blogUser.fanNum}}</span>
             <span class="data-text">粉丝</span>
           </div>
           <div class="user-property-bottom-container">
-            <span class="data">0</span>
+            <span class="data">{{blogUser.blogViewNum}}</span>
             <span class="data-text">浏览量</span>
           </div>
         </div>
@@ -32,7 +32,7 @@
         color="#ffe1e1"
         text-color="#ad0000"
         style="margin-right: 8px;"
-        v-for="tag in blogUser.tags">
+        v-for="tag in JSON.parse(blogUser.tags)">
       {{ tag }}
     </van-tag>
     <van-text-ellipsis

@@ -1,21 +1,19 @@
 <template>
-  <van-sticky>
     <van-nav-bar
-        :title="`用户详情`"
+        title="文章详情"
         left-arrow
         @click-left="onClickLeft"
     >
     </van-nav-bar>
-  </van-sticky>
 
-  <blog-user-intro :blogUser="blog.blogUser"/>
-  <md-viewer :content="blog.content" style="width: 100%; margin: 10px"/>
+  <blog-user-intro :blogUser="blog.blogUserVO"/>
+  <md-viewer :content="blog.content" style="width: 95%; margin: 10px"/>
   <van-tag
       plain
       color="#ffe1e1"
       text-color="#ad0000"
       style="margin-right: 8px;"
-      v-for="tag in blog.tags">
+      v-for="tag in JSON.parse(blog.tags)">
     {{ tag }}
   </van-tag>
 
@@ -39,53 +37,45 @@
 
 <script setup lang="ts">
 import MdViewer from "../../components/MdViewer.vue";
-import {ref} from "vue";
+import {ref, watchEffect} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import BlogUserIntro from "../../components/BlogUserIntro.vue";
+import myAxios from "../../plugins/myAxios";
+import {showToast} from "vant";
 
 const route = useRoute();
 const router = useRouter();
 
-const blogId = route.params.id;
+const id = route.params.id;
 
 const comment = ref('');
-console.log(blogId);
 
 const content = ref('');
 
-const blog = ref({
-  id: 9,
-  title: 'Java Spring Boot',
-  content: 'Java Spring Boot Redis MySQL Vue React',
-  coverImage: '',
-  images: '',
-  tags: '',
-  viewNum: 0,
-  likeNum: 0,
-  starNum: 0,
-  commentNum: 0,
-  blogUser: {
-    id: 0,
-    username: 'C1own',
-    avatarUrl: 'https://www.keaitupian.cn/cjpic/frombd/0/253/936677050/470164789.jpg',
-    profile: '你好哇，我是牛马何佳骏何佳骏何佳骏何佳骏何佳骏何佳骏何佳骏',
-    fanNum: 0,
-    blogNum: 0,
-    viewNum: 0,
-    tags: ['java', 'python', 'go', 'Redis', '单身'],
-  },
-  createTime: ''
-});
+const blog = ref();
 
 const addComment = () => {
   console.log(comment.value);
   comment.value = '';
 };
 
+console.log(id);
+
+watchEffect(async () => {
+
+  const res : any = await myAxios.get(`/blog/get/${id}`);
+  if (res?.code === 0) {
+    blog.value = res.data;
+  } else {
+    showToast('文章不存在')
+  }
+});
+
 
 const onClickLeft = () => {
   router.back();
 };
+
 </script>
 
 <style scoped>

@@ -40,20 +40,21 @@
 </template>
 
 <script setup lang="ts">
-import {BLogType} from "../models/blog";
+import {BlogType} from "../models/blog";
 import {useRouter} from "vue-router";
 
 const router = useRouter();
 
 interface BlogCardListProps {
-  blogList: BLogType[]
+  blogList: BlogType[]
 }
 
 withDefaults(defineProps<BlogCardListProps>(), {
   loading: true,
 });
 
-const toBlog = (id: number) => {
+const toBlog = (id: bigint) => {
+  alert(id);
   router.push({
     path: `/blog/detail/${id}`
   });
