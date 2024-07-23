@@ -67,7 +67,7 @@
 
   onMounted(async () => {
     currentUser.value = await getCurrentUser();
-  })
+  });
 
   const preJoinTeam = (team: TeamType) => {
     joinTeamId.value = team.id;

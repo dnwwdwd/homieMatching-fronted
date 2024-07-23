@@ -1,67 +1,70 @@
 <template>
-  <van-cell-group>
-    <van-cell
-        v-for="blog in blogList"
+  <van-swipe-cell v-for="blog in blogList">
+    <van-card
+        :desc="blog.content"
         :title="blog.title"
-        @click="toBlog(blog.id)">
-      <template #icon>
-        <van-image v-if="blog.coverImage" :src="blog.coverImage" width="88px" height="88px"/>
-      </template>
-      <template #title>
-        <van-text-ellipsis :content="blog.content" rows="3" expand-text="展开" collapse-text="收起"/>
-      </template>
-      <template #value>
-        <van-text-ellipsis :content="blog.title" rows="2"/>
-        <div style="margin-top: 60px">
-          <van-icon name="eye-o" size="14">
-            <span style="margin-left: 2px">{{ blog.viewNum }}</span>
-          </van-icon>
-          <van-icon name="good-job-o" size="14">
-            <span style="margin-left: 2px">{{ blog.likeNum }}</span>
-          </van-icon>
-          <van-icon name="star-o" size="14">
-            <span style="margin-left: 2px">{{ blog.starNum }}</span>
-          </van-icon>
-        </div>
-      </template>
-      <template #label>
+        class="blog-card"
+        :thumb="blog.coverImage">
+      <template #tags>
         <van-tag
             plain
             color="#ffe1e1"
             text-color="#ad0000"
-            style="margin-right: 8px; margin-top: 8px"
-            v-for="tag in blog.tags">
+            style="margin-right: 8px;"
+            v-for="tag in JSON.parse(blog.tags)">
           {{ tag }}
         </van-tag>
       </template>
-    </van-cell>
-  </van-cell-group>
+    </van-card>
+    <template #right v-if="blog.blogUserVO.id === currentUser.id">
+      <van-button round text="删除" type="danger" class="delete-button" @click="deleteBlog(blog.id)" />
+      <van-button round text="修改" type="success" class="modify-button" @click="modifyBlog(blog.id)" />
+    </template>
+  </van-swipe-cell>
 
 </template>
 
 <script setup lang="ts">
 import {BlogType} from "../models/blog";
 import {useRouter} from "vue-router";
+import {onMounted, ref} from "vue";
+import {getCurrentUser} from "../services/user";
 
 const router = useRouter();
 
-interface BlogCardListProps {
-  blogList: BlogType[]
-}
+const currentUser = ref();
 
-withDefaults(defineProps<BlogCardListProps>(), {
-  loading: true,
+onMounted(async () => {
+  currentUser.value = currentUser.value = await getCurrentUser();
+  console.log(currentUser.value?.id);
 });
 
-const toBlog = (id: bigint) => {
-  alert(id);
-  router.push({
-    path: `/blog/detail/${id}`
-  });
+const deleteBlog = (id: number) => {
+  console.log('删除', id);
+
 };
+
+const modifyBlog = (id: number) => {
+  console.log('修改', id);
+};
+
+
+interface BlogListType {
+  blogList: BlogType[];
+}
+
+withDefaults(defineProps<BlogListType>(), {
+  loading: true,
+});
 
 </script>
 
 <style scoped>
+.modify-button {
+  height: 100%;
+}
 
+.delete-button {
+  height: 100%;
+}
 </style>

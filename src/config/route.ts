@@ -8,8 +8,10 @@ import SearchResultPage from "../pages/User/SearchResultPage.vue";
 import UserLoginPage from "../pages/UserLoginPage.vue";
 import TeamAddPage from "../pages/Team/TeamAddPage.vue";
 import BlogPage from "../pages/Blog/BlogPage.vue";
+import BlogRecommendPage from "../pages/Blog/BlogRecommendPage.vue";
 import BlogCreatePage from "../pages/Blog/BlogCreatePage.vue";
 import BlogDetailPage from "../pages/Blog/BlogDetailPage.vue";
+import FollowPage from "../pages/Follow/FollowPage.vue";
 import TeamUpdatePage from "../pages/Team/TeamUpdatePage.vue";
 import UserUpdatePage from "../pages/User/UserUpdatePage.vue";
 import UserJoinPage from "../pages/Team/UserTeamJoinPage.vue";
@@ -24,9 +26,11 @@ import ChatPage from "../pages/Chat/ChatPage.vue";
 const routes = [
     { path: '/', component: Index},
     { path: '/team', title:'找队伍', component: Team },
-    { path: '/blog', title:'博客', component: BlogPage },
+    { path: '/blog', title:'博客', component: BlogRecommendPage },
     { path: '/blog/create', title:'发布博客', component: BlogCreatePage },
     { path: '/blog/detail/:id', title:'博客详情', component: BlogDetailPage, meta: {layout: 'blog-detail'} },
+    { path: '/user/blog', title:'Ta 发布的博客', component: BlogPage},
+    { path: '/user/follow', title:'关注', component: FollowPage },
     { path: '/friend', title:'好友', component: FriendPage },
     { path: '/chat', title:'聊天界面', component: ChatPage, meta: {layout: 'chat'} },
     { path: '/team/introduce', title:'队伍详情', component: TeamIntroPage },

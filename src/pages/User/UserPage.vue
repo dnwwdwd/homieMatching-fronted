@@ -55,11 +55,11 @@
       <span class="data-text2">收藏</span>
     </div>
     <div class="image-container">
-      <img class="icon" src="/src/assets/follow.png"/>
+      <img class="icon" src="/src/assets/follow.png" @click="toFollow(1)"/>
       <span class="data-text2">关注</span>
     </div>
     <div class="image-container">
-      <img class="icon" src="/src/assets/fan.png"/>
+      <img class="icon" src="/src/assets/fan.png" @click="toFollow(0)"/>
       <span class="data-text2">粉丝</span>
     </div>
   </div>
@@ -118,6 +118,14 @@ onMounted(async () => {
   user.value = await getCurrentUser();
 });
 
+const toFollow = (type : number) => {
+  router.push({
+    path: '/user/follow',
+    query: {
+      type: type,
+    }
+  })
+};
 </script>
 
 <style scoped>

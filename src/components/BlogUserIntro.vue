@@ -31,12 +31,12 @@
         plain
         color="#ffe1e1"
         text-color="#ad0000"
-        style="margin-right: 8px;"
+        style="margin: 5px;"
         v-for="tag in JSON.parse(blogUser.tags)">
       {{ tag }}
     </van-tag>
     <van-text-ellipsis
-        style="padding: 2px; font-size: 14px"
+        style="padding: 5px; font-size: 14px"
         rows="2"
         :content="blogUser.profile"
         expand-text="展开"

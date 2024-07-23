@@ -7,7 +7,7 @@
     </van-nav-bar>
 
   <blog-user-intro :blogUser="blog.blogUserVO"/>
-  <md-viewer :content="blog.content" style="width: 95%; margin: 10px"/>
+  <md-viewer :content="blog.content" style="width: 95%; margin: 10px;"/>
   <van-tag
       plain
       color="#ffe1e1"

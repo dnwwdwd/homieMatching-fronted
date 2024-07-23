@@ -8,11 +8,12 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     BlogCardList: typeof import('./src/components/BlogCardList.vue')['default']
+    BlogIndexCardList: typeof import('./src/components/BlogIndexCardList.vue')['default']
     BlogUserIntro: typeof import('./src/components/BlogUserIntro.vue')['default']
+    FollowCardList: typeof import('./src/components/FollowCardList.vue')['default']
     FriendCardList: typeof import('./src/components/FriendCardList.vue')['default']
     MdEditor: typeof import('./src/components/MdEditor.vue')['default']
     MdViewer: typeof import('./src/components/MdViewer.vue')['default']
-    MDViewer: typeof import('./src/components/MDViewer.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TeamCardList: typeof import('./src/components/TeamCardList.vue')['default']
@@ -46,6 +47,7 @@ declare module 'vue' {
     VanSpace: typeof import('vant/es')['Space']
     VanStepper: typeof import('vant/es')['Stepper']
     VanSticky: typeof import('vant/es')['Sticky']
+    VanSwipeCell: typeof import('vant/es')['SwipeCell']
     VanSwitch: typeof import('vant/es')['Switch']
     VanTab: typeof import('vant/es')['Tab']
     VanTabbar: typeof import('vant/es')['Tabbar']
@@ -55,7 +57,5 @@ declare module 'vue' {
     VanTextEllipsis: typeof import('vant/es')['TextEllipsis']
     VanTreeSelect: typeof import('vant/es')['TreeSelect']
     VanUploader: typeof import('vant/es')['Uploader']
-    VerifyPoints: typeof import('./src/components/Verify/VerifyPoints.vue')['default']
-    VerifySlide: typeof import('./src/components/Verify/VerifySlide.vue')['default']
   }
 }
