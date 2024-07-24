@@ -3,6 +3,7 @@
       :value="value"
       :mode="mode"
       :plugins="plugins"
+      :uploadImages="uploadImages"
       @change="handleChange"
   />
 </template>
@@ -10,8 +11,8 @@
 <script setup lang="ts">
 import gfm from "@bytemd/plugin-gfm";
 import highlight from "@bytemd/plugin-highlight";
-import { Editor } from "@bytemd/vue-next";
-import { defineProps, withDefaults } from "vue";
+import {Editor} from "@bytemd/vue-next";
+import {defineProps, withDefaults} from "vue";
 
 /**
  * 定义组件属性类型
@@ -32,6 +33,9 @@ const props = withDefaults(defineProps<Props>(), {
   },
 });
 
+const uploadImages = (files) => {
+  console.log(files);
+};
 </script>
 
 <style>
