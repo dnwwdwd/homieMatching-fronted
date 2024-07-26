@@ -14,7 +14,7 @@
           style="margin-top: 15px; margin-left: 15px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);"
       />
       <div class="user-profile">
-        <h3>{{user.username}}</h3>
+        <h3>{{ user.username }}</h3>
         <van-space wrap v-for="tag in JSON.parse(user.tags)">
           <van-tag color="#ffe1e1" text-color="#ad0000" style="margin-right: 4px">
             {{ tag }}
@@ -27,19 +27,19 @@
 
     <div class="user-profile-bottom">
       <div class="user-profile-bottom-container">
-        <span class="data">0</span>
+        <span class="data">{{ blogNum }}</span>
         <span class="data-text">博客</span>
       </div>
       <div class="user-profile-bottom-container">
-        <span class="data">0</span>
+        <span class="data">{{ likeBlogNum }}</span>
         <span class="data-text">点赞</span>
       </div>
       <div class="user-profile-bottom-container">
-        <span class="data">0</span>
+        <span class="data">{{ starBlogNum }}</span>
         <span class="data-text">收藏</span>
       </div>
       <div class="user-profile-bottom-container">
-        <span class="data">0</span>
+        <span class="data">{{ followNum }}</span>
         <span class="data-text">粉丝</span>
       </div>
     </div>
@@ -106,19 +106,31 @@
 </template>
 
 <script setup lang="ts">
-
 import {onMounted, ref} from "vue";
 import {getCurrentUser} from "../../services/user";
 import {useRouter} from "vue-router";
+import myAxios from "../../plugins/myAxios";
 
 const router = useRouter();
 const user = ref();
 
+const followNum = ref(0);
+const blogNum = ref(0);
+const starBlogNum = ref(0);
+const likeBlogNum = ref(0);
+
 onMounted(async () => {
   user.value = await getCurrentUser();
+  const res: any = await myAxios.get('/user/info/get');
+  if (res?.code === 0) {
+    blogNum.value = res.data.blogNum;
+    followNum.value = res.data.followNum;
+    starBlogNum.value = res.data.starBlogNum;
+    likeBlogNum.value = res.data.likeBlogNum;
+  }
 });
 
-const toFollow = (type : number) => {
+const toFollow = (type: number) => {
   router.push({
     path: '/user/follow',
     query: {
@@ -126,6 +138,8 @@ const toFollow = (type : number) => {
     }
   })
 };
+
+
 </script>
 
 <style scoped>
@@ -139,7 +153,7 @@ const toFollow = (type : number) => {
   border-radius: 5px;
 }
 
-.user-profile-top{
+.user-profile-top {
   display: flex;
 }
 
@@ -151,18 +165,18 @@ const toFollow = (type : number) => {
   height: 100px;
 }
 
-.user-profile-bottom{
+.user-profile-bottom {
   width: 100%;
   height: 70px;
   display: flex;
   justify-content: space-around;
 }
 
-.data{
+.data {
   font-size: 20px;
 }
 
-.data-text{
+.data-text {
   font-size: 12px;
   color: darkgrey;
 }
@@ -177,21 +191,24 @@ const toFollow = (type : number) => {
   display: flex;
   justify-content: space-around;
 }
+
 .icon {
   width: 40px;
   height: 40px;
 }
-.data-text2{
+
+.data-text2 {
   color: #4183F1;
 }
-.image-container{
+
+.image-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.user-bottom{
+.user-bottom {
   width: 90%;
   height: 225px;
   margin-left: auto;
@@ -200,7 +217,7 @@ const toFollow = (type : number) => {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.user-profile-bottom-container{
+.user-profile-bottom-container {
   width: 50px;
   display: flex;
   flex-direction: column;
