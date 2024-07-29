@@ -3,7 +3,6 @@
       :value="value"
       :mode="mode"
       :plugins="plugins"
-      :uploadImages="uploadImages"
       @change="handleChange"
   />
 </template>
@@ -33,9 +32,6 @@ const props = withDefaults(defineProps<Props>(), {
   },
 });
 
-const uploadImages = (files) => {
-  console.log(files);
-};
 </script>
 
 <style>

@@ -11,8 +11,7 @@
         multiple
         :max-size="500 * 1024 * 1024"
         :max-count="1"
-        :after-read="afterRead"
-        @oversize="onOversize"/>
+        :after-read="afterRead"/>
   </div>
 
   <van-field
@@ -39,7 +38,7 @@
     </div>
   </div>
 
-  <md-editor :value="blog.content" :mode="`split`" :handle-change="onMdChange"/>
+  <md-editor :value="blog.content" :mode="`split`" :handle-change="onMdChange" :uploadImages="uploadImages"/>
 
   <van-button type="success" @click="createBlog">发布博客</van-button>
 </template>
@@ -68,8 +67,6 @@ const coverImageList = ref([]);
 
 const onMdChange = (v: string) => {
   blog.value.content = v;
-
-  console.log(v);
 };
 
 const addBlogTag = () => {
@@ -91,6 +88,10 @@ const afterRead = (file: File) => {
 };
 
 const uploadUploadCoverImage = async (file) => {
+  if (file.size > 5 * 1024 * 1024) {
+    showToast('图片大小不能超过 5M');
+    return;
+  }
   const formData = new FormData();
   formData.append('file', file.file);
   const res: any = await myAxios.post('/image/blog/coverImage/upload', formData, {
@@ -105,25 +106,62 @@ const uploadUploadCoverImage = async (file) => {
   } else {
     showToast('图片上传失败' + (res.description ? `，${res.description}` : ''));
   }
-}
-
-const onOversize = (file) => {
-  console.log(file);
-  showToast('文件大小不能超过 500 MB');
 };
 
-
 const createBlog = async () => {
-  const res = await myAxios.post('/blog/add', blog.value);
+  const res : any = await myAxios.post('/blog/add', blog.value);
   if (res?.code === 0) {
     showToast('发布成功');
     router.push({
-
+      path: `/blog/detail/${res.data}`
     });
   } else {
     showToast('发布失败');
   }
 };
+
+const uploadImages = async (files) => {
+  const results = await Promise.all(
+      files.map(async (file) => {
+        if (file.size > 5 * 1024 * 1024) {
+          return {
+            url: '图片大小不能超过 5M',
+          };
+        }
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+          const res : any = await myAxios.post('/image/blog/coverImage/upload', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            }
+          });
+          if (res?.code === 0) {
+            // 将上传的图片添加至图片列表中
+            blog.value.images.push(res.data);
+            // 图片转链
+            return {
+              url: res.data,
+            };
+          }
+          return {
+            url: res.message,
+          };
+        } catch (error) {
+          console.error('图片上传失败:', error);
+          return {
+            url: '上传失败',
+          };
+        }
+      })
+  );
+
+  return results;
+};
+
+
 </script>
 
 <style scoped>

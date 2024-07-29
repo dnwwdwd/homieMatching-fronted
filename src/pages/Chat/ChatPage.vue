@@ -110,9 +110,17 @@ onMounted(async () => {
   stats.value.team.teamId = Number.parseInt(teamId)
   stats.value.chatUser.username = username
   stats.value.team.teamName = teamName
-  stats.value.chatType = stats.value.chatEnum.PRIVATE_CHAT
-  title.value = stats.value.chatUser.username
-  stats.value.user = await getCurrentUser()
+  if (userType && Number.parseInt(userType) === stats.value.chatEnum.PRIVATE_CHAT) {
+    stats.value.chatType = stats.value.chatEnum.PRIVATE_CHAT
+    title.value = stats.value.chatUser.username
+  } else if (teamType && Number.parseInt(teamType) === stats.value.chatEnum.TEAM_CHAT) {
+    stats.value.chatType = stats.value.chatEnum.TEAM_CHAT
+    title.value = stats.value.team.teamName
+  } else {
+    stats.value.chatType = stats.value.chatEnum.HALL_CHAT
+    title.value = "公共聊天室"
+  }
+  stats.value.user = await getCurrentUser();
 
 
   // 私聊
@@ -130,29 +138,32 @@ onMounted(async () => {
       }
     })
   }
-  // if (stats.value.chatType === stats.value.chatEnum.HALL_CHAT) {
-  //   const hallMessage = await myAxios.get("/chat/hallChat")
-  //   hallMessage.data.data.forEach(chat => {
-  //     if (chat.isMy === true) {
-  //       createContent(null, chat.fromUser, chat.text)
-  //     } else {
-  //       createContent(chat.fromUser, null, chat.text, chat.isAdmin, chat.createTime)
-  //     }
-  //   })
-  // }
-  // if (stats.value.chatType === stats.value.chatEnum.TEAM_CHAT) {
-  //   const teamMessage = await myAxios.post("/chat/teamChat",
-  //       {
-  //         teamId: stats.value.team.teamId
-  //       })
-  //   teamMessage.data.data.forEach(chat => {
-  //     if (chat.isMy === true) {
-  //       createContent(null, chat.fromUser, chat.text)
-  //     } else {
-  //       createContent(chat.fromUser, null, chat.text, chat.isAdmin, chat.createTime)
-  //     }
-  //   })
-  // }
+  // 大厅聊天
+  if (stats.value.chatType === stats.value.chatEnum.HALL_CHAT) {
+    const hallMessage = await myAxios.get("/chat/hallChat")
+    hallMessage.data.forEach(chat => {
+      if (chat.isMy === true) {
+        createContent(null, chat.fromUser, chat.text)
+      } else {
+        createContent(chat.fromUser, null, chat.text, chat.isAdmin, chat.createTime)
+      }
+    })
+  }
+
+  // 队伍聊天
+  if (stats.value.chatType === stats.value.chatEnum.TEAM_CHAT) {
+    const teamMessage = await myAxios.post("/chat/teamChat",
+        {
+          teamId: stats.value.team.teamId
+        })
+    teamMessage.data.forEach(chat => {
+      if (chat.isMy === true) {
+        createContent(null, chat.fromUser, chat.text)
+      } else {
+        createContent(chat.fromUser, null, chat.text, chat.isAdmin, chat.createTime)
+      }
+    })
+  }
   init()
   await nextTick()
   const lastElement = chatRoom.value.lastElementChild

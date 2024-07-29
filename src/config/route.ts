@@ -21,6 +21,7 @@ import TeamIntroPage from "../pages/Team/TeamIntroPage.vue";
 import RegisterTagsPage from "../pages/RegisterTagsPage.vue";
 import UserIntroPage from "../pages/User/UserIntroPage.vue";
 import FriendPage from "../pages/Friend/FriendPage.vue";
+import MessagePage from "../pages/Message/MessagePage.vue";
 import ChatPage from "../pages/Chat/ChatPage.vue";
 
 const routes = [
@@ -32,6 +33,7 @@ const routes = [
     { path: '/user/blog', title:'Ta 发布的博客', component: BlogPage},
     { path: '/user/follow', title:'关注', component: FollowPage },
     { path: '/friend', title:'好友', component: FriendPage },
+    { path: '/message', title:'消息', component: MessagePage },
     { path: '/chat', title:'聊天界面', component: ChatPage, meta: {layout: 'chat'} },
     { path: '/team/introduce', title:'队伍详情', component: TeamIntroPage },
     { path: '/team/update', title:'队伍信息修改', component: TeamUpdatePage },

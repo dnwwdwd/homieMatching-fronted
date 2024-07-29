@@ -1,5 +1,5 @@
 <template>
-  <Viewer :value="content" :plugins="plugins" />
+  <Viewer :value="content" :plugins="plugins"/>
 </template>
 
 <script setup lang="ts">
@@ -20,6 +20,7 @@ const plugins = [gfm(), highlight()];
 const props = withDefaults(defineProps<Props>(), {
   content: () => "",
 });
+
 </script>
 
 <style>
