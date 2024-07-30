@@ -18,6 +18,7 @@ declare module 'vue' {
     MdEditor: typeof import('./src/components/MdEditor.vue')['default']
     MdViewer: typeof import('./src/components/MdViewer.vue')['default']
     MessageCardList: typeof import('./src/components/MessageCardList.vue')['default']
+    MyTeamCardList: typeof import('./src/components/MyTeamCardList.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TeamCardList: typeof import('./src/components/TeamCardList.vue')['default']

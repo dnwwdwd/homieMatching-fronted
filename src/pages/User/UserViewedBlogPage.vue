@@ -1,5 +1,6 @@
 <template>
   <blog-card-list :blogList="blogList"/>
+  <van-empty v-show="!blogList || blogList.length < 1" description="您还未浏览过任何一篇文章" />
 </template>
 
 <script setup lang="ts">
@@ -18,13 +19,13 @@ const id = route.params.id;
 
 onMounted(async () => {
 
-  const res: any = await myAxios.post(`/blog/user/${id}`, {
+  const res: any = await myAxios.post('/blog/like/or/star/list', {
     pageNum: 1,
     pageSize: 20,
+    type: 0,
   });
   if (res?.code === 0) {
     blogList.value = res.data;
-    showToast('查询成功');
   } else {
     showToast('查询失败');
   }

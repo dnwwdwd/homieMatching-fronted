@@ -35,7 +35,7 @@ const loading = ref(false);
 const refreshed = ref(false);
 
 const loadBlogList = async () => {
-  const res : any = await myAxios.post('/blog/list', {
+  const res : any = await myAxios.post('/blog/recommend', {
     pageNum: 1,
     pageSize: 20,
   });

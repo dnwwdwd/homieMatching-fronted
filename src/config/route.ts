@@ -16,6 +16,9 @@ import TeamUpdatePage from "../pages/Team/TeamUpdatePage.vue";
 import UserUpdatePage from "../pages/User/UserUpdatePage.vue";
 import UserJoinPage from "../pages/Team/UserTeamJoinPage.vue";
 import UserTeamCreatePage from "../pages/Team/UserTeamCreatePage.vue";
+import UserStarBlogPage from "../pages/User/UserStarBlogPage.vue";
+import UserLikeBlogPage from "../pages/User/UserLikeBlogPage.vue";
+import UserViewedBlogPage from "../pages/User/UserViewedBlogPage.vue";
 import UserRegisterPage from "../pages/User/UserRegisterPage.vue";
 import TeamIntroPage from "../pages/Team/TeamIntroPage.vue";
 import RegisterTagsPage from "../pages/RegisterTagsPage.vue";
@@ -30,7 +33,10 @@ const routes = [
     { path: '/blog', title:'博客', component: BlogRecommendPage },
     { path: '/blog/create', title:'发布博客', component: BlogCreatePage },
     { path: '/blog/detail/:id', title:'博客详情', component: BlogDetailPage, meta: {layout: 'blog-detail'} },
-    { path: '/user/blog', title:'Ta 发布的博客', component: BlogPage},
+    { path: '/user/:id/blog', title:'Ta 的博客', component: BlogPage},
+    { path: '/user/star/blog', title:'我收藏的博客', component: UserStarBlogPage},
+    { path: '/user/like/blog', title:'我点赞的博客', component: UserLikeBlogPage},
+    { path: '/user/viewed/blog', title:'浏览过的的博客', component: UserViewedBlogPage},
     { path: '/user/follow', title:'关注', component: FollowPage },
     { path: '/friend', title:'好友', component: FriendPage },
     { path: '/message', title:'消息', component: MessagePage },

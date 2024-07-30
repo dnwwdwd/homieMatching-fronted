@@ -47,11 +47,11 @@
 
   <div v-if="user" class="user-middle">
     <div class="image-container">
-      <img class="icon" src="/src/assets/like.png"/>
+      <img class="icon" src="/src/assets/like.png" @click="toMyLikeBlogPage"/>
       <span class="data-text2">点赞</span>
     </div>
     <div class="image-container">
-      <img class="icon" src="/src/assets/star.png"/>
+      <img class="icon" src="/src/assets/star.png" @click="toMyStarBlogPage"/>
       <span class="data-text2">收藏</span>
     </div>
     <div class="image-container">
@@ -67,19 +67,19 @@
   <div v-if="user" class="user-bottom">
     <div style="display: flex; justify-content: space-around; padding-top: 30px">
       <div class="image-container">
-        <img class="icon" src="/src/assets/blog.png"/>
+        <img class="icon" src="/src/assets/blog.png" @click="toBlogPage"/>
         <span class="data-text2">博客</span>
       </div>
       <div class="image-container">
-        <img class="icon" src="/src/assets/record.png"/>
+        <img class="icon" src="/src/assets/record.png" @click="toViewedBlogPage"/>
         <span class="data-text2">阅读记录</span>
       </div>
       <div class="image-container">
-        <img class="icon" src="/src/assets/teamjoined.png"/>
+        <img class="icon" src="/src/assets/teamjoined.png" @click="toMyTeamJoinPage"/>
         <span class="data-text2">已加队伍</span>
       </div>
       <div class="image-container">
-        <img class="icon" src="/src/assets/teamcreated.png"/>
+        <img class="icon" src="/src/assets/teamcreated.png" @click="toMyTeamCreatePage"/>
         <span class="data-text2">已建队伍</span>
       </div>
     </div>
@@ -139,7 +139,41 @@ const toFollow = (type: number) => {
   })
 };
 
+const toBlogPage = () => {
+  router.push({
+    path: `/user/${user.value.id}/blog`
+  });
+};
 
+const toMyTeamJoinPage = () => {
+  router.push({
+    path: '/user/team/join'
+  });
+};
+
+const toMyTeamCreatePage = () => {
+  router.push({
+    path: '/user/team/create'
+  });
+};
+
+const toMyLikeBlogPage = () => {
+  router.push({
+    path: '/user/like/blog'
+  });
+};
+
+const toMyStarBlogPage = () => {
+  router.push({
+    path: '/user/star/blog'
+  });
+};
+
+const toViewedBlogPage = () => {
+  router.push({
+    path: '/user/viewed/blog'
+  })
+}
 </script>
 
 <style scoped>

@@ -17,9 +17,12 @@
       </template>
     </van-card>
     <template #right v-if="blog.blogUserVO.id === currentUser.id">
-      <van-button round text="删除" type="danger" class="delete-button" @click="deleteBlog(blog.id)" />
-      <van-button round text="修改" type="success" class="modify-button" @click="modifyBlog(blog.id)" />
+      <van-button round text="删除" type="danger" class="button" @click="deleteBlog(blog.id)" v-if="blog.blogUserVO.id === currentUser.id"/>
+      <van-button round text="修改" type="success" class="button" @click="modifyBlog(blog.id)" v-if="blog.blogUserVO.id === currentUser.id"/>
+      <van-button round text="点赞" type="success" class="button" @click="likeBlog(blog.id, blog.isLiked)" v-if="blog.blogUserVO.id !== currentUser.id"/>
+      <van-button round text="收藏" type="success" class="button" @click="starBlog(blog.id, blog.isStarred)" v-if="blog.blogUserVO.id !== currentUser.id"/>
     </template>
+
   </van-swipe-cell>
 
 </template>
@@ -29,6 +32,8 @@ import {BlogType} from "../models/blog";
 import {useRouter} from "vue-router";
 import {onMounted, ref} from "vue";
 import {getCurrentUser} from "../services/user";
+import myAxios from "../plugins/myAxios";
+import {showToast} from "vant";
 
 const router = useRouter();
 
@@ -48,6 +53,29 @@ const modifyBlog = (id: number) => {
   console.log('修改', id);
 };
 
+const starBlog = async (id : number, isStarred : boolean) => {
+  const res : any = await myAxios.post('/blog/star', {
+    blogId: id,
+    isStarred: isStarred
+  });
+  if (res?.code === 0) {
+    showToast('点赞成功');
+  } else {
+    showToast('点赞失败');
+  }
+};
+
+const likeBlog = async (id : number, isLiked : boolean) => {
+  const res : any = await myAxios.post('/blog/like', {
+    blogId : id,
+    isLiked: isLiked
+  });
+  if (res?.code === 0) {
+    showToast('点赞成功');
+  } else {
+    showToast('点赞失败');
+  }
+};
 
 interface BlogListType {
   blogList: BlogType[];
@@ -60,11 +88,8 @@ withDefaults(defineProps<BlogListType>(), {
 </script>
 
 <style scoped>
-.modify-button {
+.button {
   height: 100%;
 }
 
-.delete-button {
-  height: 100%;
-}
 </style>

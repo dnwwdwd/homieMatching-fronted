@@ -27,7 +27,7 @@
         <van-button size="mini" color="#1989FA" v-if="team.userId !== currentUser?.id  && !team.hasJoin"
                     @click.stop="preJoinTeam(team)">
           加入队伍</van-button>
-        <van-button v-if="team.userId === currentUser?.id" size="mini" color="#1989FA" @click.stop="doUpdateTeam(team.id)">更新队伍</van-button>
+        <van-button  v-if="team.userId === currentUser?.id" size="mini" color="#1989FA" @click.stop="doUpdateTeam(team.id)">更新队伍</van-button>
         <van-button size="mini" v-if="team.hasJoin" color="#1989FA" @click.stop="doQuitTeam(team.id)">退出队伍</van-button>
         <van-button v-if="team.userId === currentUser?.id" size="mini" type="danger" plain @click.stop="doDeleteTeam(team.id)">解散队伍</van-button>
       </template>
@@ -106,7 +106,7 @@
   }
 
   /**
-   * 调到更新队伍页
+   * 跳到更新队伍页
    */
   const doUpdateTeam = (id: number) => {
     router.push({

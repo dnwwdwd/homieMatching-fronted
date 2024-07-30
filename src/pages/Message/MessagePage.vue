@@ -22,25 +22,30 @@
 
 <script setup lang="ts">
 
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import MessageCardList from "../../components/MessageCardList.vue";
 import {useRouter} from "vue-router";
+import myAxios from "../../plugins/myAxios";
+import {showToast} from "vant";
 
 const router = useRouter();
 
-const teamMessageList = ref([
-  {
-    id: 1,
-    teamName: '牛马队',
-    description: '我爱学习'
-  }
-]);
+const teamMessageList = ref([]);
 
 const toFriendPage = () => {
   router.push({
     path: '/friend'
   });
 };
+
+onMounted(async () => {
+  const res : any = await myAxios.get('/team/list/my/join');
+  if (res?.code === 0) {
+    teamMessageList.value = res.data;
+  } else {
+    showToast('加载队伍失败，请刷新重试!' + (`${res.description}` ? `，${res.description}` : ''));
+  }
+});
 </script>
 
 <style scoped>

@@ -13,4 +13,6 @@ export type BlogType = {
     commentNum: number;
     blogUserVO: BlogUserType;
     createTime: string;
+    isStarred: boolean;
+    isLiked: boolean;
 }

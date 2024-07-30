@@ -1,8 +1,9 @@
 <template>
   <div id="teamPage">
     <van-search v-model="searchText" placeholder="搜索队伍" @search="onSearch"/>
-    <team-card-list :team-list="teamList"></team-card-list>
-    <van-empty v-show="!teamList || teamList.length < 1" description="数据为空" />
+<!--    <team-card-list :team-list="teamList"></team-card-list>-->
+    <my-team-card-list :team-list="teamList"/>
+    <van-empty v-show="!teamList || teamList.length < 1" description="您还未创建队伍" />
   </div>
 </template>
 
@@ -13,6 +14,7 @@ import TeamCardList from "../../components/TeamCardList.vue";
 import {onMounted, ref} from "vue";
 import {showToast} from "vant";
 import myAxios from "../../plugins/myAxios";
+import MyTeamCardList from "../../components/MyTeamCardList.vue";
 
 
 const router = useRouter();
