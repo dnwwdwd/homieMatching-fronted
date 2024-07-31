@@ -16,6 +16,7 @@
       magnetic="x"
       @click="onClick"
   />
+  <van-empty v-show="!blogList || blogList.length < 1" description="还没有博客捏" />
 </template>
 
 <script setup lang="ts">

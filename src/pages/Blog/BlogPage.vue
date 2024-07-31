@@ -1,5 +1,6 @@
 <template>
   <blog-card-list :blogList="blogList"/>
+  <van-empty v-show="!blogList || blogList.length < 1" description="还没有博客捏" />
 </template>
 
 <script setup lang="ts">
