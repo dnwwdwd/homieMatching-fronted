@@ -19,7 +19,6 @@
     {{ tag }}
   </van-tag>
 
-
   <van-sticky>
     <van-tabbar class="tabbar-content">
       <div >
@@ -30,9 +29,8 @@
             placeholder="输入评论……"
             @keydown.enter="addComment"
         />
-
-        <van-icon class="icon" style="margin-left: 50px" name="good-job-o" size="24" :badge="blog.likeNum"/>
-        <van-icon class="icon" name="star-o" size="24" :badge="blog.starNum"/>
+        <van-icon class="icon" style="margin-left: 50px" name="good-job-o" size="24" :badge="blog.likeNum" @click="likeBlog(blog.id, blog.isLiked)"/>
+        <van-icon class="icon" name="star-o" size="24" :badge="blog.starNum" @click="starBlog(blog.id, blog.isStarred)"/>
       </div>
     </van-tabbar>
   </van-sticky>
@@ -65,7 +63,6 @@ const addComment = () => {
 console.log(id);
 
 watchEffect(async () => {
-
   const res : any = await myAxios.get(`/blog/get/${id}`);
   if (res?.code === 0) {
     blog.value = res.data;
@@ -74,6 +71,29 @@ watchEffect(async () => {
   }
 });
 
+const likeBlog = async (id, isLiked) => {
+  const res : any = await myAxios.post('/blog/like', {
+    blogId: id,
+    isLiked: isLiked,
+  });
+  if (res?.code === 0) {
+    blog.value.likeNum = blog.value.likeNum + 1;
+  } else {
+    showToast('点赞失败' + (res.description ? `，${res.description}` : ''));
+  }
+};
+
+const starBlog = async (id, isStarred) => {
+  const res : any = await myAxios.post('/blog/star', {
+    blogId: id,
+    isStarred: isStarred
+  });
+  if (res?.code === 0) {
+    blog.value.starNum = blog.value.starNum + 1;
+  } else {
+    showToast('收藏失败' + (res.description ? `，${res.description}` : ''));
+  }
+};
 
 const onClickLeft = () => {
   router.back();
