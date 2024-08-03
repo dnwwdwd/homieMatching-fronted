@@ -1,5 +1,6 @@
 <template>
   <message-card-list :messageVOList="messageVOList" />
+  <van-empty v-if="!messageVOList || messageVOList.length < 1" description="暂无互动消息哦"/>
 </template>
 
 <script setup lang="ts">

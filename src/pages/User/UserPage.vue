@@ -86,11 +86,11 @@
 
     <div style="display: flex; justify-content: space-around; padding-top: 30px">
       <div class="image-container">
-        <img class="icon" src="/src/assets/signin.png"/>
+        <img class="icon" src="/src/assets/signin.png" @click="toSignInPage"/>
         <span class="data-text2">签到</span>
       </div>
       <div class="image-container">
-        <img class="icon" src="/src/assets/rank.png"/>
+        <img class="icon" src="/src/assets/rank.png" @click="toRankPage"/>
         <span class="data-text2">排名</span>
       </div>
       <div class="image-container">
@@ -98,7 +98,7 @@
         <span class="data-text2">创作活动</span>
       </div>
       <div class="image-container">
-        <img class="icon" src="/src/assets/feedback.png"/>
+        <img class="icon" src="/src/assets/feedback.png" @click="toFeedbackPage"/>
         <span class="data-text2">意见反馈</span>
       </div>
     </div>
@@ -174,6 +174,25 @@ const toViewedBlogPage = () => {
     path: '/user/viewed/blog'
   })
 }
+
+const toRankPage = () => {
+  router.push({
+    path: '/rank'
+  });
+};
+
+const toSignInPage = () => {
+  router.push({
+    path: '/user/sign/in'
+  })
+};
+
+const toFeedbackPage = () => {
+  router.push({
+    path: '/homiematching/feedback'
+  })
+}
+
 </script>
 
 <style scoped>

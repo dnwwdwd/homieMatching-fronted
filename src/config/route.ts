@@ -20,13 +20,17 @@ import UserStarBlogPage from "../pages/User/UserStarBlogPage.vue";
 import UserLikeBlogPage from "../pages/User/UserLikeBlogPage.vue";
 import UserViewedBlogPage from "../pages/User/UserViewedBlogPage.vue";
 import UserRegisterPage from "../pages/User/UserRegisterPage.vue";
+import FeedbackPage from "../pages/Other/FeedbackPage.vue";
+import SignInPage from "../pages/Other/SignInPage.vue";
 import TeamIntroPage from "../pages/Team/TeamIntroPage.vue";
 import RegisterTagsPage from "../pages/RegisterTagsPage.vue";
 import UserIntroPage from "../pages/User/UserIntroPage.vue";
 import FriendPage from "../pages/Friend/FriendPage.vue";
 import MessagePage from "../pages/Message/MessagePage.vue";
 import MessageInteractionPage from "../pages/Message/MessageInteractionPage.vue";
+import PrivateMessagePage from "../pages/Message/PrivateMessagePage.vue";
 import ChatPage from "../pages/Chat/ChatPage.vue";
+import RankPage from "../pages/Rank/RankPage.vue";
 
 const routes = [
     { path: '/', component: Index},
@@ -42,7 +46,9 @@ const routes = [
     { path: '/friend', title:'好友', component: FriendPage },
     { path: '/message', title:'消息', component: MessagePage },
     { path: '/message/interaction', title:'收藏消息', component: MessageInteractionPage },
+    { path: '/message/private', title:'私信', component: PrivateMessagePage },
     { path: '/chat', title:'聊天界面', component: ChatPage, meta: {layout: 'chat'} },
+    { path: '/rank', title:'排行榜', component: RankPage},
     { path: '/team/introduce', title:'队伍详情', component: TeamIntroPage },
     { path: '/team/update', title:'队伍信息修改', component: TeamUpdatePage },
     { path: '/team/add', title:'创建队伍', component: TeamAddPage },
@@ -58,6 +64,8 @@ const routes = [
     { path: '/user/update', title:'个人信息修改', component: UserUpdatePage },
     { path: '/user/team/join', title:'我加入的队伍', component: UserJoinPage },
     { path: '/user/team/create', title:'我创建的队伍', component: UserTeamCreatePage },
+    { path: '/user/sign/in', title:'签到', component: SignInPage },
+    { path: '/homiematching/feedback', title:'homie反馈', component: FeedbackPage},
 ]
 
 export default routes;

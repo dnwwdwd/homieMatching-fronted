@@ -15,7 +15,6 @@
 </template>
 
 <script setup lang="ts">
-
 // 定义一个类型接口
 import myAxios from "../plugins/myAxios";
 import {showSuccessToast, showToast} from "vant";
