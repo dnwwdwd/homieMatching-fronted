@@ -1,10 +1,10 @@
 <template>
-    <van-nav-bar
-        title="文章详情"
-        left-arrow
-        @click-left="onClickLeft"
-    >
-    </van-nav-bar>
+  <van-nav-bar
+      title="文章详情"
+      left-arrow
+      @click-left="onClickLeft"
+  >
+  </van-nav-bar>
 
   <blog-user-intro :blogUser="blog.blogUserVO"/>
 
@@ -21,7 +21,7 @@
 
   <van-sticky>
     <van-tabbar class="tabbar-content">
-      <div >
+      <div>
         <input
             type="text"
             style="border-radius: 5px; border-color: beige; height: 20px; margin-left: 10px; width: 240px"
@@ -29,8 +29,10 @@
             placeholder="输入评论……"
             @keydown.enter="addComment"
         />
-        <van-icon class="icon" style="margin-left: 50px" name="good-job-o" size="24" :badge="blog.likeNum" @click="likeBlog(blog.id, blog.isLiked)"/>
-        <van-icon class="icon" name="star-o" size="24" :badge="blog.starNum" @click="starBlog(blog.id, blog.isStarred)"/>
+        <van-icon class="icon" style="margin-left: 50px" name="good-job-o" size="24" :badge="blog.likeNum"
+                  @click="likeBlog(blog.id, blog.isLiked)"/>
+        <van-icon class="icon" name="star-o" size="24" :badge="blog.starNum"
+                  @click="starBlog(blog.id, blog.isStarred)"/>
       </div>
     </van-tabbar>
   </van-sticky>
@@ -38,7 +40,7 @@
 
 <script setup lang="ts">
 import MdViewer from "../../components/MdViewer.vue";
-import {ref, watchEffect} from "vue";
+import {onMounted, ref, watchEffect} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import BlogUserIntro from "../../components/BlogUserIntro.vue";
 import myAxios from "../../plugins/myAxios";
@@ -63,16 +65,17 @@ const addComment = () => {
 console.log(id);
 
 watchEffect(async () => {
-  const res : any = await myAxios.get(`/blog/get/${id}`);
+  const res: any = await myAxios.get(`/blog/get/${id}`);
   if (res?.code === 0) {
     blog.value = res.data;
   } else {
-    showToast('文章不存在')
+    showToast('文章不存在');
+    router.back();
   }
 });
 
 const likeBlog = async (id, isLiked) => {
-  const res : any = await myAxios.post('/blog/like', {
+  const res: any = await myAxios.post('/blog/like', {
     blogId: id,
     isLiked: isLiked,
   });
@@ -84,7 +87,7 @@ const likeBlog = async (id, isLiked) => {
 };
 
 const starBlog = async (id, isStarred) => {
-  const res : any = await myAxios.post('/blog/star', {
+  const res: any = await myAxios.post('/blog/star', {
     blogId: id,
     isStarred: isStarred
   });

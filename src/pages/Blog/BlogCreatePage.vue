@@ -40,7 +40,10 @@
 
   <md-editor :value="blog.content" :mode="`split`" :handle-change="onMdChange" :uploadImages="uploadImages"/>
 
-  <van-button type="success" @click="createBlog">发布博客</van-button>
+  <div style="margin: 0 auto; text-align: center;">
+    <van-button type="success" style="width: 320px; margin-top: 10px" @click="createBlog">发布博客</van-button>
+  </div>
+
 </template>
 
 
