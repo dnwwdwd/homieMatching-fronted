@@ -19,17 +19,19 @@
     {{ tag }}
   </van-tag>
 
+  <comment-card-list style="margin-top: 20px" :commentVOList="blog.commentVOList" v-if="blog.commentVOList || blog.commentVOList.length > 0"/>
+
   <van-sticky>
     <van-tabbar class="tabbar-content">
-      <div>
+      <div style="display: flex; align-items: center; justify-content: center">
         <input
             type="text"
-            style="border-radius: 5px; border-color: beige; height: 20px; margin-left: 10px; width: 240px"
+            style="border-radius: 5px; border-color: beige; height: 20px; margin-left: 10px; width: 180px"
             v-model="comment"
             placeholder="输入评论……"
-            @keydown.enter="addComment"
         />
-        <van-icon class="icon" style="margin-left: 50px" name="good-job-o" size="24" :badge="blog.likeNum"
+        <van-button type="success" style="height: 24px; margin-left: 12px" @click="addComment(blog.id)">评论</van-button>
+        <van-icon class="icon" style="margin-left: 28px" name="good-job-o" size="24" :badge="blog.likeNum"
                   @click="likeBlog(blog.id, blog.isLiked)"/>
         <van-icon class="icon" name="star-o" size="24" :badge="blog.starNum"
                   @click="starBlog(blog.id, blog.isStarred)"/>
@@ -40,11 +42,12 @@
 
 <script setup lang="ts">
 import MdViewer from "../../components/MdViewer.vue";
-import {onMounted, ref, watchEffect} from "vue";
+import {ref, watchEffect} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import BlogUserIntro from "../../components/BlogUserIntro.vue";
 import myAxios from "../../plugins/myAxios";
-import {showToast} from "vant";
+import {showFailToast, showToast} from "vant";
+import CommentCardList from "../../components/CommentCardList.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -57,12 +60,20 @@ const content = ref('');
 
 const blog = ref();
 
-const addComment = () => {
+const addComment = async (blogId) => {
+  const res: any = await myAxios.post('/comment/add', {
+    text: comment.value,
+    blogId: blogId
+  });
+  if (res?.code === 0) {
+    comment.value = '';
+  } else {
+    showFailToast('评论失败');
+    comment.value = '';
+  }
   console.log(comment.value);
   comment.value = '';
 };
-
-console.log(id);
 
 watchEffect(async () => {
   const res: any = await myAxios.get(`/blog/get/${id}`);
@@ -72,6 +83,7 @@ watchEffect(async () => {
     showToast('文章不存在');
     router.back();
   }
+
 });
 
 const likeBlog = async (id, isLiked) => {
