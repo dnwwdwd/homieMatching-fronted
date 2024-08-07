@@ -5,4 +5,5 @@ export type CommentVOType = {
     text: string;
     username: string;
     userAvatarUrl: string;
+    isMyComment: boolean;
 };

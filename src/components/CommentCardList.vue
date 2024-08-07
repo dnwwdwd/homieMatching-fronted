@@ -6,7 +6,7 @@
         <van-image round :src="commentVO.userAvatarUrl" width="50" height="50"/>
       </template>
       <template #right-icon>
-        <van-icon icon="delete-o" />
+        <van-icon name="delete-o" class="delete-o" v-if="commentVO.isMyComment" @click="deleteComment(commentVO.id)"/>
       </template>
     </van-cell>
   </van-cell-group>
@@ -16,6 +16,8 @@
 <script setup lang="ts">
 
 import {CommentVOType} from "../models/commentVO";
+import myAxios from "../plugins/myAxios";
+import {showFailToast, showToast} from "vant";
 
 interface CommentVOListProps {
   commentVOList: CommentVOType[]
@@ -25,8 +27,21 @@ withDefaults(defineProps<CommentVOListProps>(), {
   loading: true
 });
 
+const deleteComment = async (id) => {
+  const res : any = await myAxios.post('/comment/delete', {
+    id: id
+  });
+  if (res?.code === 0) {
+    showToast('删除成功');
+  } else {
+    showFailToast('删除失败');
+  }
+};
 </script>
 
 <style scoped>
-
+.delete-o{
+  font-size: 16px;
+  line-height: inherit;
+}
 </style>

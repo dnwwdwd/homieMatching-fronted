@@ -103,6 +103,7 @@
       </div>
     </div>
   </div>
+  <van-button type="primary" @click="userLogout">退出登录</van-button>
 </template>
 
 <script setup lang="ts">
@@ -110,6 +111,7 @@ import {onMounted, ref} from "vue";
 import {getCurrentUser} from "../../services/user";
 import {useRouter} from "vue-router";
 import myAxios from "../../plugins/myAxios";
+import {showToast} from "vant";
 
 const router = useRouter();
 const user = ref();
@@ -191,6 +193,19 @@ const toFeedbackPage = () => {
   router.push({
     path: '/homiematching/feedback'
   })
+}
+
+// 退出登录
+const userLogout = async () => {
+  const res :any = await myAxios.post('/user/logout');
+  if (res?.code === 0) {
+    showToast("退出成功");
+    router.push({
+      path: '/user/login'
+    })
+  } else {
+    showToast("退出失败" + (`${res.description}` ? `，${res.description}` : ''));
+  }
 }
 
 </script>
