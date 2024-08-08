@@ -6,22 +6,25 @@
           width="4.5rem"
           height="4.5rem"
           :src="blogUser.avatarUrl"
-          style="margin-top: 15px; margin-left: 15px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);"
-      />
+          style="margin-top: 15px; margin-left: 15px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);">
+      </van-image>
       <div class="user-property-top">
-        <span style="font-size: 20px; margin-left: 25px; font-weight: bold">{{ blogUser.username }}</span>
-
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <span style="font-size: 20px; margin-left: 25px; font-weight: bold">{{ blogUser.username }}</span>
+          <van-button type="success" size="small" @click="addFollow(blogUser.id, blogUser.followed)" v-if="!blogUser.followed">关注</van-button>
+          <van-button type="success" size='small' @click="deleteFollow(blogUser.id, blogUser.followed)" v-if="blogUser.followed">取关</van-button>
+        </div>
         <div class="user-property-bottom">
           <div class="user-property-bottom-container">
-            <span class="data">{{blogUser.blogNum}}</span>
+            <span class="data">{{ blogUser.blogNum }}</span>
             <span class="data-text">博客</span>
           </div>
           <div class="user-property-bottom-container">
-            <span class="data">{{blogUser.fanNum}}</span>
+            <span class="data">{{ blogUser.fanNum }}</span>
             <span class="data-text">粉丝</span>
           </div>
           <div class="user-property-bottom-container">
-            <span class="data">{{blogUser.blogViewNum}}</span>
+            <span class="data">{{ blogUser.blogViewNum }}</span>
             <span class="data-text">浏览量</span>
           </div>
         </div>
@@ -43,7 +46,6 @@
         collapse-text="收起"
     />
 
-
   </div>
 
 </template>
@@ -51,6 +53,9 @@
 <script setup lang="ts">
 
 import {BlogUserType} from "../models/blogUser";
+import myAxios from "../plugins/myAxios";
+import {showToast} from "vant";
+import { defineEmits } from "vue";
 
 interface BlogUserIntroProps {
   blogUser: BlogUserType
@@ -59,6 +64,33 @@ interface BlogUserIntroProps {
 withDefaults(defineProps<BlogUserIntroProps>(), {
   loading: true
 });
+
+// 定义 emit 事件
+const emit = defineEmits(['update-followed']);
+
+const addFollow = async (id, followed) => {
+  const res: any = await myAxios.post('/follow/add', {
+    userId: id,
+    isFollowed: followed,
+  });
+  if (res?.code === 0) {
+    emit('update-followed', !followed);
+  } else {
+    showToast('关注失败' + (res.description ? `，${res.description}` : ''));
+  }
+};
+
+const deleteFollow = async (id, followed) => {
+  const res: any = await myAxios.post('/follow/delete', {
+    userId: id,
+    isFollowed: followed,
+  });
+  if (res?.code === 0) {
+    emit('update-followed', !followed);
+  } else {
+    showToast('关注失败' + (res.description ? `，${res.description}` : ''));
+  }
+};
 
 </script>
 
@@ -93,11 +125,11 @@ withDefaults(defineProps<BlogUserIntroProps>(), {
   justify-content: space-around;
 }
 
-.data{
+.data {
   font-size: 20px;
 }
 
-.data-text{
+.data-text {
   font-size: 12px;
   color: darkgrey;
 }
@@ -110,4 +142,8 @@ withDefaults(defineProps<BlogUserIntroProps>(), {
   align-items: center;
 }
 
+/* 使按钮图标居中 */
+.van-button .van-icon {
+  vertical-align: middle;
+}
 </style>

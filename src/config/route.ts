@@ -45,7 +45,7 @@ const routes = [
     { path: '/user/follow', title:'关注', component: FollowPage },
     { path: '/friend', title:'好友', component: FriendPage },
     { path: '/message', title:'消息', component: MessagePage },
-    { path: '/message/interaction', title:'收藏消息', component: MessageInteractionPage },
+    { path: '/message/interaction', title:'消息通知', component: MessageInteractionPage },
     { path: '/message/private', title:'私信', component: PrivateMessagePage },
     { path: '/chat', title:'聊天界面', component: ChatPage, meta: {layout: 'chat'} },
     { path: '/rank', title:'排行榜', component: RankPage},

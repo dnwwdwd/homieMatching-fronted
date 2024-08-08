@@ -103,7 +103,9 @@
       </div>
     </div>
   </div>
-  <van-button type="primary" @click="userLogout">退出登录</van-button>
+  <div style="margin: 0 auto; text-align: center;">
+    <van-button type="primary" style="width: 320px; margin-top: 10px" @click="userLogout">退出登录</van-button>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -197,7 +199,7 @@ const toFeedbackPage = () => {
 
 // 退出登录
 const userLogout = async () => {
-  const res :any = await myAxios.post('/user/logout');
+  const res: any = await myAxios.post('/user/logout');
   if (res?.code === 0) {
     showToast("退出成功");
     router.push({

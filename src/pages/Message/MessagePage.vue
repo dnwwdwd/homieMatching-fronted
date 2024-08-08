@@ -28,7 +28,7 @@
 
 <script setup lang="ts">
 
-import {onMounted, ref} from "vue";
+import {onMounted, ref, watchEffect} from "vue";
 import {useRouter} from "vue-router";
 import myAxios from "../../plugins/myAxios";
 import {showToast} from "vant";

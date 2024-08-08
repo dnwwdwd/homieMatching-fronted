@@ -18,6 +18,7 @@
 import {CommentVOType} from "../models/commentVO";
 import myAxios from "../plugins/myAxios";
 import {showFailToast, showToast} from "vant";
+import {defineEmits} from "vue";
 
 interface CommentVOListProps {
   commentVOList: CommentVOType[]
@@ -27,12 +28,16 @@ withDefaults(defineProps<CommentVOListProps>(), {
   loading: true
 });
 
+// 定义 emit 事件
+const emit = defineEmits(['delete-comment']);
+
 const deleteComment = async (id) => {
   const res : any = await myAxios.post('/comment/delete', {
     id: id
   });
   if (res?.code === 0) {
     showToast('删除成功');
+    emit('delete-comment');
   } else {
     showFailToast('删除失败');
   }

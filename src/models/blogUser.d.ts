@@ -7,4 +7,5 @@ export type BlogUserType = {
     blogNum: number;
     blogViewNum: number;
     tags: string;
+    followed: boolean;
 }

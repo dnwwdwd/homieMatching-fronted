@@ -17,7 +17,7 @@
           placeholder="聊点什么吧...."
       >
         <template #button style="margin-bottom: 100px">
-          <van-button size="small" type="primary" @click="send" style="margin-right: 16px">发送</van-button>
+          <van-button size="small" type="primary" @click="send" @keydown.enter="send" style="margin-right: 16px">发送</van-button>
         </template>
       </van-field>
     </van-cell-group>

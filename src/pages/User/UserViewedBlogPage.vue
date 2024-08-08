@@ -4,7 +4,7 @@
 </template>
 
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
+import {onMounted, ref, watchEffect} from "vue";
 import BlogCardList from "../../components/BlogCardList.vue";
 import myAxios from "../../plugins/myAxios";
 import {showToast} from "vant";
@@ -17,9 +17,9 @@ const route = useRoute();
 const id = route.params.id;
 
 
-onMounted(async () => {
+watchEffect(async () => {
 
-  const res: any = await myAxios.post('/blog/like/or/star/list', {
+  const res: any = await myAxios.post('/blog/viewed/list', {
     pageNum: 1,
     pageSize: 20,
     type: 0,
