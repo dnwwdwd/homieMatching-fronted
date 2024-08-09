@@ -119,7 +119,7 @@ const createBlog = async () => {
       path: `/blog/detail/${res.data}`
     });
   } else {
-    showToast('发布失败');
+    showToast('发布失败' + (res.description ? `，${res.description}` : ''));
   }
 };
 
@@ -136,7 +136,7 @@ const uploadImages = async (files) => {
         formData.append('file', file);
 
         try {
-          const res : any = await myAxios.post('/image/blog/coverImage/upload', formData, {
+          const res : any = await myAxios.post('/image/blog/image/upload', formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
             }

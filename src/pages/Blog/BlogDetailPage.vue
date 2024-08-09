@@ -1,12 +1,13 @@
 <template>
-  <div>
+  <van-sticky>
     <van-nav-bar
         title="文章详情"
         left-arrow
         @click-left="onClickLeft"
     >
     </van-nav-bar>
-
+  </van-sticky>
+  <div>
     <!-- 使用 v-if 确保 blog 数据已加载 -->
     <blog-user-intro v-if="blog && blog.blogUserVO" :blogUser="blog.blogUserVO" @update-followed="updateFollowed"/>
 
@@ -24,9 +25,10 @@
     <div style="margin-top: 50px" v-if="blog && !(blog.commentVOList && blog.commentVOList.length > 0)"></div>
 
     <comment-card-list style="margin-top: 20px" :commentVOList="blog.commentVOList"
-                       v-if="blog && blog.commentVOList && blog.commentVOList.length > 0" @delete-comment="deleteComment"/>
+                       v-if="blog && blog.commentVOList && blog.commentVOList.length > 0"
+                       @delete-comment="deleteComment"/>
 
-    <van-back-top right="15vw" bottom="10vh" />
+    <van-back-top right="15vw" bottom="10vh"/>
 
     <van-sticky>
       <van-tabbar class="tabbar-content">
@@ -39,9 +41,11 @@
           />
           <van-button type="success" style="height: 24px; margin-left: 12px" @click="addComment(blog.id)">评论
           </van-button>
-          <van-icon class="icon" style="margin-left: 28px" name="good-job" size="24" :badge="blog.likeNum" v-if="blog.liked"
+          <van-icon class="icon" style="margin-left: 28px" name="good-job" size="24" :badge="blog.likeNum"
+                    v-if="blog.liked"
                     @click="cancelLikeBlog(blog.id, blog.liked)"/>
-          <van-icon class="icon" style="margin-left: 28px" name="good-job-o" size="24" :badge="blog.likeNum" v-if="!blog.liked"
+          <van-icon class="icon" style="margin-left: 28px" name="good-job-o" size="24" :badge="blog.likeNum"
+                    v-if="!blog.liked"
                     @click="likeBlog(blog.id, blog.liked)"/>
           <van-icon class="icon" name="star" size="24" :badge="blog.starNum" v-if="blog.starred"
                     @click="cancelStarBlog(blog.id, blog.starred)"/>
@@ -55,11 +59,11 @@
 
 <script setup lang="ts">
 import MdViewer from "../../components/MdViewer.vue";
-import { ref, watchEffect } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import {ref, watchEffect} from "vue";
+import {useRoute, useRouter} from "vue-router";
 import BlogUserIntro from "../../components/BlogUserIntro.vue";
 import myAxios from "../../plugins/myAxios";
-import { showFailToast, showToast } from "vant";
+import {showFailToast, showToast} from "vant";
 import CommentCardList from "../../components/CommentCardList.vue";
 import {getCurrentUser} from "../../services/user";
 
@@ -103,6 +107,7 @@ watchEffect(async () => {
   } else {
     showToast('文章不存在');
     router.back();
+    window.location.reload();
   }
 });
 

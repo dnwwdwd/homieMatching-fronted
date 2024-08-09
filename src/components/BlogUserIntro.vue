@@ -88,7 +88,7 @@ const deleteFollow = async (id, followed) => {
   if (res?.code === 0) {
     emit('update-followed', !followed);
   } else {
-    showToast('关注失败' + (res.description ? `，${res.description}` : ''));
+    showToast('取关失败' + (res.description ? `，${res.description}` : ''));
   }
 };
 
