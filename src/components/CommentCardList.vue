@@ -1,7 +1,7 @@
 <template>
   <van-divider>评论区</van-divider>
   <van-cell-group v-for="commentVO in commentVOList">
-    <van-cell center :title="commentVO.username" :label="commentVO.text">
+    <van-cell center :title="commentVO.username" :label="commentVO.text" >
       <template #icon>
         <van-image round :src="commentVO.userAvatarUrl" width="50" height="50"/>
       </template>

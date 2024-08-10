@@ -13,8 +13,10 @@
         :show-confirm="false"
         :formatter="formatter">
     </van-calendar>
-    <div style="margin: auto; display: flex; flex-direction: column; align-items: center;" v-if="isSignedIn !== undefined">
-      <van-button type="primary" v-if="!isSignedIn" style="width: 320px; margin-bottom: 10px;" @click="signIn">签到</van-button>
+    <div style="margin: auto; display: flex; flex-direction: column; align-items: center;"
+         v-if="isSignedIn !== undefined">
+      <van-button type="primary" v-if="!isSignedIn" style="width: 320px; margin-bottom: 10px;" @click="signIn">签到
+      </van-button>
       <van-button color="grey" v-if="isSignedIn" disabled style="width: 320px;">已签到</van-button>
     </div>
   </div>
@@ -25,37 +27,37 @@ import {computed, ref, watchEffect} from 'vue';
 import myAxios from "../../plugins/myAxios";
 import {showFailToast, showSuccessToast} from "vant";
 
-const minDate = ref(new Date(2024,6,1));
-const maxDate = ref(new Date(2025,6,1));
+const minDate = ref(new Date(2024, 6, 1));
+const maxDate = ref(new Date(2025, 6, 1));
 const isSignedIn = ref(false);
 const signedInDayNum = ref(0);
 const selectedDates = ref<Date[]>([]);
 const datesLoaded = ref(false);
 
-watchEffect(async () => {
-  try {
-    const res: any = await myAxios.get('/user/sign/in/info/get');
-    if (res?.code === 0) {
-      isSignedIn.value = res.data.isSignedIn;
-      signedInDayNum.value = res.data.signedInDayNum;
-      selectedDates.value = res.data.signedInDates.map((dateStr: string) => new Date(dateStr));
-      if (selectedDates.value.length === 0) {
-        selectedDates.value.push(new Date());
-      }
-      datesLoaded.value = true; // 标记数据已加载
-    } else {
-      showFailToast('加载失败！');
+const loadData = async () => {
+  const res: any = await myAxios.get('/user/sign/in/info/get');
+  if (res?.code === 0) {
+    isSignedIn.value = res.data.isSignedIn;
+    signedInDayNum.value = res.data.signedInDayNum;
+    selectedDates.value = res.data.signedInDates.map((dateStr: string) => new Date(dateStr));
+    if (selectedDates.value.length === 0) {
+      selectedDates.value.push(new Date());
     }
-  } catch (error) {
-    showFailToast('请求失败！');
-    console.error(error);
+    datesLoaded.value = true; // 标记数据已加载
+  } else {
+    showFailToast('加载失败！');
   }
+};
+
+watchEffect(async () => {
+  loadData();
 });
 
 const signIn = async () => {
   const res: any = await myAxios.post('/user/sign/in');
   if (res?.code === 0) {
     showSuccessToast('签到成功！');
+    loadData();
   } else {
     showFailToast('签到失败！' + (res.description ? `，${res.description}` : ''));
   }
@@ -93,7 +95,6 @@ const formatter = computed(() => {
     return day;
   };
 });
-
 
 
 /**

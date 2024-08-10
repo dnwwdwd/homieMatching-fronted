@@ -1,6 +1,6 @@
 <template>
-  <blog-card-list :blogList="blogList"/>
-  <van-empty v-show="!blogList || blogList.length < 1" description="还没有博客捏" />
+  <blog-card-list :blogList="blogList" @delete-blog="deleteBlog"/>
+  <van-empty v-show="!blogList || blogList.length < 1" description="还没有博客捏"/>
 </template>
 
 <script setup lang="ts">
@@ -18,10 +18,13 @@ const id = route.params.id;
 
 
 onMounted(async () => {
+  loadData();
+});
 
+const loadData = async () => {
   const res: any = await myAxios.post(`/blog/user/${id}`, {
     pageNum: 1,
-    pageSize: 20,
+    pageSize: 8,
   });
   if (res?.code === 0) {
     blogList.value = res.data;
@@ -29,9 +32,14 @@ onMounted(async () => {
   } else {
     showToast('查询失败');
   }
-});
+};
+
+const deleteBlog = async () => {
+  loadData();
+};
 </script>
 
 <style scoped>
+
 
 </style>

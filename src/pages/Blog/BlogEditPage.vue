@@ -1,4 +1,12 @@
 <template>
+  <van-sticky>
+    <van-nav-bar
+        :title="blog.title"
+        left-arrow
+        @click-left="onClickLeft"
+    >
+    </van-nav-bar>
+  </van-sticky>
   <van-field
       v-model="blog.title"
       label="标题"
@@ -41,19 +49,24 @@
   <md-editor :value="blog.content" :mode="`split`" :handle-change="onMdChange" :uploadImages="uploadImages"/>
 
   <div style="margin: 0 auto; text-align: center;">
-    <van-button type="success" style="width: 320px; margin-top: 10px" @click="createBlog">发布博客</van-button>
+    <van-button type="success" style="width: 320px; margin-top: 10px" @click="editBlog">修改博客</van-button>
   </div>
 
 </template>
 
+
 <script setup lang="ts">
 import MdEditor from "../../components/MdEditor.vue";
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import myAxios from "../../plugins/myAxios";
 import {showToast} from "vant";
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
+
 
 const router = useRouter();
+const route = useRoute();
+
+const id = route.params.id;
 
 const blog = ref({
   title: '',
@@ -66,6 +79,18 @@ const blog = ref({
 const tag = ref('');
 
 const coverImageList = ref([]);
+
+onMounted(async () => {
+  const res : any = await myAxios.get(`/blog/get/${id}`);
+  if (res?.code === 0) {
+    blog.value = res.data;
+    blog.value.tags = JSON.parse(blog.value.tags);
+    coverImageList.value.push({url: blog.value.coverImage});
+    blog.value.images = JSON.parse(blog.value.images);
+  } else {
+    showToast('博客查询失败');
+  }
+});
 
 const onMdChange = (v: string) => {
   blog.value.content = v;
@@ -108,15 +133,18 @@ const uploadUploadCoverImage = async (file) => {
   }
 };
 
-const createBlog = async () => {
-  const res : any = await myAxios.post('/blog/add', blog.value);
+const editBlog = async () => {
+  const res : any = await myAxios.post('/blog/edit', {
+    ...blog.value,
+    id: id
+  });
   if (res?.code === 0) {
-    showToast('发布成功');
-    router.push({
+    showToast('修改成功');
+    router.replace({
       path: `/blog/detail/${res.data}`
     });
   } else {
-    showToast('发布失败' + (res.description ? `，${res.description}` : ''));
+    showToast('修改失败' + (res.description ? `，${res.description}` : ''));
   }
 };
 
@@ -159,6 +187,10 @@ const uploadImages = async (files) => {
   );
 
   return results;
+};
+
+const onClickLeft = () => {
+  router.back();
 };
 
 </script>

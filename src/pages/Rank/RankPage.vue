@@ -29,7 +29,7 @@ onMounted(async () => {
 
     option = {
       title: {
-        text: 'World Population'
+        text: '用户排名'
       },
       tooltip: {
         trigger: 'axis',

@@ -13,10 +13,9 @@
   <van-floating-bubble
       axis="xy"
       icon="plus"
-      magnetic="x"
-      @click="onClick"
-  />
-  <van-empty v-show="!blogList || blogList.length < 1" description="还没有博客捏" />
+      magnetic="y"
+      @click="onClick"/>
+  <van-empty v-show="!blogList || blogList.length < 1" description="还没有博客捏"/>
 </template>
 
 <script setup lang="ts">
@@ -36,7 +35,7 @@ const loading = ref(false);
 const refreshed = ref(false);
 
 const loadBlogList = async () => {
-  const res : any = await myAxios.post('/blog/recommend', {
+  const res: any = await myAxios.post('/blog/recommend', {
     pageNum: 1,
     pageSize: 20,
   });

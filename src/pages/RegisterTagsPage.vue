@@ -34,19 +34,34 @@
       v-model:main-active-index="activeIndex"
       :items="tagList"
   />
-  <div style="padding: 12px">
-    <van-button block type="primary" @click="doSearchResult" style="margin: 12px">注册</van-button>
+  <div style="display: flex; align-items: center">
+    <van-button block type="primary" style="margin: 12px" @click="doSearchResult" v-if="!isShow">注册</van-button>
+    <van-button block type="primary" style="margin: 12px" @click="editUserTags" v-if="isShow">修改</van-button>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import {onMounted, ref} from 'vue';
 import {useRoute, useRouter} from 'vue-router';
 import myAxios from "../plugins/myAxios.ts";
 import {showToast} from "vant";
 
 const router = useRouter();
 const route = useRoute();
+
+const { type } = route.query;
+const { userId } = route.query;
+
+const isShow = ref(false);
+
+onMounted(() => {
+  console.log(type);
+  if (parseInt(type) === 1) {
+    isShow.value = true;
+  } else {
+    isShow.value = false;
+  }
+});
 
 const searchText = ref('');
 let originTagList = [
@@ -122,29 +137,52 @@ function doClose(tag) {
 const { registerUser } = route.query;
 
 const doSearchResult =  async () =>{
-  const registerUserParam = JSON.parse(registerUser);
-  const res = await myAxios.post('/user/register', {
-    userAccount: registerUserParam.userAccount,
-    userPassword: registerUserParam.userPassword,
-    checkPassword: registerUserParam.checkPassword,
-/*    planetCode: registerUserParam.planetCode,
-    gender: registerUserParam.gender,
-    avatarUrl: registerUserParam.avatarUrl,*/
-    username: registerUserParam.username,
-/*    phone: registerUserParam.phone,*/
-    tagNameList: activeIds.value,
-    longitude: registerUserParam.longitude,
-    dimension: registerUserParam.dimension,
-  });
-  if (res?.code === 0) {
-    showToast('注册成功');
-    router.push({
-      path: '/user/login'
-    })
+  if (activeIds.value.length > 0) {
+    const registerUserParam = JSON.parse(registerUser);
+    const res = await myAxios.post('/user/register', {
+      userAccount: registerUserParam.userAccount,
+      userPassword: registerUserParam.userPassword,
+      checkPassword: registerUserParam.checkPassword,
+      /*    planetCode: registerUserParam.planetCode,
+          gender: registerUserParam.gender,
+          avatarUrl: registerUserParam.avatarUrl,*/
+      username: registerUserParam.username,
+      /*    phone: registerUserParam.phone,*/
+      tagNameList: activeIds.value,
+      longitude: registerUserParam.longitude,
+      dimension: registerUserParam.dimension,
+    });
+    if (res?.code === 0) {
+      showToast('注册成功');
+      router.push({
+        path: '/user/login'
+      })
+    } else {
+      showToast('注册失败' + (`${res.description}` ? `，${res.description}` : ''));
+    }
   } else {
-    showToast('注册失败' + (`${res.description}` ? `，${res.description}` : ''));
+    showToast('请至少选择一个标签');
   }
 };
+
+const editUserTags = async () => {
+  if (activeIds.value.length > 0) {
+    const res = await myAxios.post('/user/update', {
+      tags: activeIds.value,
+      id: parseInt(userId),
+    });
+    if (res?.code === 0) {
+      showToast('修改成功');
+      router.back();
+    } else {
+      showToast('修改失败');
+    }
+  } else {
+    showToast('请至少选择一个标签');
+  }
+
+};
+
 const onClickLeft = () => {
   router.back();
 }

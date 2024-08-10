@@ -1,11 +1,11 @@
 <template>
   <van-form @submit="onSubmit">
-      <van-field
-          v-model="editUser.currentValue as string"
-          :name="editUser.editKey as string"
-          :label="editUser.editName as string"
-          :placeholder="`请输入${editUser.editName}`"
-      />
+    <van-field
+        v-model="editUser.currentValue as string"
+        :name="editUser.editKey as string"
+        :label="editUser.editName as string"
+        :placeholder="`请输入${editUser.editName}`"
+    />
     <div style="margin: 16px;">
       <van-button round block type="primary" native-type="submit">
         确认修改
@@ -35,7 +35,7 @@ const editUser = ref({
 // values是表单中所有元素的值
 const onSubmit = async () => {
   const currentUser = await getCurrentUser();
-  if(!currentUser) {
+  if (!currentUser) {
     showSuccessToast('用户未登录');
     return;
   }
@@ -43,13 +43,16 @@ const onSubmit = async () => {
   const loginUser = await getCurrentUser();
 
   // todo 把editKey，editName，editValue 提交到后台
-  const res = await myAxios.post('/user/update', {
+  const res: any = await myAxios.post('/user/update', {
     'id': loginUser.id,
     [editUser.value.editKey as string]: editUser.value.currentValue,
   });
-  if(res.data > 0) {
+  if (res.data > 0) {
     showSuccessToast('修改成功');
-    router.back()
+    router.push({
+      path: '/user/update',
+    }
+    );
   } else {
     showSuccessToast('修改错误' + (`${res.description}` ? `，${res.description}` : ''));
   }

@@ -17,11 +17,11 @@ import {
     Row,
     Search,
     Stepper,
+    Sticky,
     Tabbar,
     TabbarItem,
     Tag,
-    TreeSelect,
-    Sticky
+    TreeSelect
 } from 'vant';
 // 2. 引入组件样式
 import * as VueRouter from 'vue-router';
@@ -33,7 +33,10 @@ import UserLoginPage from "./pages/UserLoginPage.vue";
 import UserRegisterPage from "./pages/User/UserRegisterPage.vue";
 import RegisterTagsPage from "./pages/RegisterTagsPage.vue";
 import UserIntroPage from "./pages/User/UserIntroPage.vue";
+import UserBlogIntroPage from "./pages/Blog/UserBlogPage.vue";
+import UserPage from "./pages/User/UserPage.vue";
 import BlogDetailPage from "./pages/Blog/BlogDetailPage.vue";
+import BlogEditPage from "./pages/Blog/BlogEditPage.vue";
 import 'bytemd/dist/index.css'
 
 const app= createApp(App);
@@ -73,5 +76,8 @@ app.component("register-layout", UserRegisterPage);
 app.component("register-tags-layout", RegisterTagsPage);
 app.component("user-intro-layout", UserIntroPage);
 app.component("blog-detail-layout", BlogDetailPage);
+app.component("blog-edit-layout", BlogEditPage);
+app.component("user-page-layout", UserPage);
+app.component("user-blog-intro-page-layout", UserBlogIntroPage);
 app.use(router);
 app.mount('#app')

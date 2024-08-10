@@ -1,6 +1,6 @@
 <template>
   <blog-card-list :blogList="blogList"/>
-  <van-empty v-show="!blogList || blogList.length < 1" description="您还未浏览过任何一篇文章" />
+  <van-empty v-show="!blogList || blogList.length < 1" description="您还未浏览过任何一篇博客" />
 </template>
 
 <script setup lang="ts">
@@ -19,10 +19,10 @@ const id = route.params.id;
 
 watchEffect(async () => {
 
-  const res: any = await myAxios.post('/blog/viewed/list', {
+  const res: any = await myAxios.post('/blog/interaction/list', {
     pageNum: 1,
     pageSize: 20,
-    type: 0,
+    type: 2,
   });
   if (res?.code === 0) {
     blogList.value = res.data;

@@ -1,6 +1,6 @@
 <template>
   <blog-card-list :blogList="blogList"/>
-  <van-empty v-show="!blogList || blogList.length < 1" description="您还未点赞过任何一篇文章" />
+  <van-empty v-show="!blogList || blogList.length < 1" description="您还未点赞过任何一篇博客" />
 </template>
 
 <script setup lang="ts">
@@ -19,7 +19,7 @@ const id = route.params.id;
 
 onMounted(async () => {
 
-  const res: any = await myAxios.post('/blog/like/or/star/list', {
+  const res: any = await myAxios.post('/blog/interaction/list', {
     pageNum: 1,
     pageSize: 20,
     type: 1,

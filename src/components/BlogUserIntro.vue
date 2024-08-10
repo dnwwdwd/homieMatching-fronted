@@ -6,13 +6,19 @@
           width="4.5rem"
           height="4.5rem"
           :src="blogUser.avatarUrl"
-          style="margin-top: 15px; margin-left: 15px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);">
+          style="margin-top: 15px; margin-left: 15px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);"
+          @click="toPersonalPage(blogUser.id)">
       </van-image>
       <div class="user-property-top">
         <div style="display: flex; align-items: center; justify-content: space-between;">
-          <span style="font-size: 20px; margin-left: 25px; font-weight: bold">{{ blogUser.username }}</span>
-          <van-button type="success" size="small" @click="addFollow(blogUser.id, blogUser.followed)" v-if="!blogUser.followed">关注</van-button>
-          <van-button type="success" size='small' @click="deleteFollow(blogUser.id, blogUser.followed)" v-if="blogUser.followed">取关</van-button>
+          <span style="font-size: 20px; margin-left: 25px; font-weight: bold"
+                @click="toPersonalPage(blogUser.id)">{{ blogUser.username }}</span>
+          <van-button type="success" size="small" @click="addFollow(blogUser.id, blogUser.followed)"
+                      v-if="!blogUser.followed">关注
+          </van-button>
+          <van-button type="success" size='small' @click="deleteFollow(blogUser.id, blogUser.followed)"
+                      v-if="blogUser.followed">取关
+          </van-button>
         </div>
         <div class="user-property-bottom">
           <div class="user-property-bottom-container">
@@ -55,7 +61,10 @@
 import {BlogUserType} from "../models/blogUser";
 import myAxios from "../plugins/myAxios";
 import {showToast} from "vant";
-import { defineEmits } from "vue";
+import {defineEmits} from "vue";
+import {useRouter} from "vue-router";
+
+const router = useRouter();
 
 interface BlogUserIntroProps {
   blogUser: BlogUserType
@@ -90,6 +99,10 @@ const deleteFollow = async (id, followed) => {
   } else {
     showToast('取关失败' + (res.description ? `，${res.description}` : ''));
   }
+};
+
+const toPersonalPage = (id) => {
+  router.push(`/user/${id}`);
 };
 
 </script>

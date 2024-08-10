@@ -53,7 +53,7 @@ withDefaults(defineProps<BlogCardListProps>(), {
   loading: true,
 });
 
-const toBlog = (id: bigint) => {
+const toBlog = (id) => {
   console.log(id);
   router.push({
     path: `/blog/detail/${id}`

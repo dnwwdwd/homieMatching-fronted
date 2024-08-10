@@ -1,4 +1,15 @@
 <template>
+  <van-sticky>
+    <van-nav-bar
+        :title="`个人中心`"
+        @click-right="onClickRight"
+    >
+      <template #right>
+        <van-icon name="setting-o" size="18"/>
+      </template>
+    </van-nav-bar>
+  </van-sticky>
+
   <van-notice-bar
       left-icon="volume-o"
       color="#1989fa" background="#ecf9ff"
@@ -103,9 +114,18 @@
       </div>
     </div>
   </div>
-  <div style="margin: 0 auto; text-align: center;">
+  <div style="margin-bottom: 54px; text-align: center;">
     <van-button type="primary" style="width: 320px; margin-top: 10px" @click="userLogout">退出登录</van-button>
   </div>
+  <van-sticky>
+    <van-tabbar route @change="onChange">
+      <van-tabbar-item to="/" icon="home-o" name="index">主页</van-tabbar-item>
+      <van-tabbar-item to="/blog" icon="notes-o" name="friend">博客</van-tabbar-item>
+      <van-tabbar-item to="/message" icon="comment-o" name="message">消息</van-tabbar-item>
+      <van-tabbar-item to="/team" icon="flag-o" name="team">队伍</van-tabbar-item>
+      <van-tabbar-item to="/user" icon="friends-o" name="user">用户</van-tabbar-item>
+    </van-tabbar>
+  </van-sticky>
 </template>
 
 <script setup lang="ts">
@@ -208,7 +228,14 @@ const userLogout = async () => {
   } else {
     showToast("退出失败" + (`${res.description}` ? `，${res.description}` : ''));
   }
+};
+
+const onChange = () => {
 }
+
+const onClickRight = () => {
+  router.push('/user/update');
+};
 
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <van-sticky>
     <van-nav-bar
-        title="文章详情"
+        :title="blog.title"
         left-arrow
         @click-left="onClickLeft"
     >
@@ -105,7 +105,7 @@ watchEffect(async () => {
   if (res?.code === 0) {
     blog.value = res.data;
   } else {
-    showToast('文章不存在');
+    showToast('博客不存在');
     router.back();
     window.location.reload();
   }
@@ -177,7 +177,7 @@ const deleteComment = async () => {
     blog.value = res.data;
     console.log('删除成功')
   } else {
-    showToast('文章不存在');
+    showToast('博客不存在');
     router.back();
   }
 };

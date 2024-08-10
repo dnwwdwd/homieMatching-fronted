@@ -4,7 +4,8 @@
         :desc="team.description"
         :title="team.teamName"
         class="team-card"
-        :thumb="`https://bpic.588ku.com/element_origin_min_pic/19/03/07/1c1f8a60faf89fd97b0832baab0db608.jpg`">
+        :thumb="`https://bpic.588ku.com/element_origin_min_pic/19/03/07/1c1f8a60faf89fd97b0832baab0db608.jpg`"
+        @click="toTeamChatRoom(team)">
       <template #tags>
         <van-tag plain type="danger" stysle="margin-right: 8px; margin-top: 8px">
           {{ teamStatusEnum[team.status] }}
@@ -125,6 +126,18 @@ const doDeleteTeam = async(id: number) => {
     showFailToast("解散失败");
   }
 }
+
+const toTeamChatRoom = (team : TeamType) => {
+  router.push({
+    path: '/chat',
+    query: {
+      teamId: team.id,
+      teamName: team.teamName,
+      teamType: 2,
+    }
+  });
+};
+
 </script>
 
 <style scoped>
