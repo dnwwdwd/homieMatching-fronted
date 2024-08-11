@@ -15,31 +15,31 @@
           center
           clearable
           placeholder="聊点什么吧...."
-      >
+          @keydown.enter="send">
         <template #button style="margin-bottom: 100px">
-          <van-button size="small" type="primary" @click="send" @keydown.enter="send" style="margin-right: 16px">发送</van-button>
+          <van-button size="small" type="primary" @click="send" style="margin-right: 16px">发送</van-button>
         </template>
       </van-field>
     </van-cell-group>
 
-<!--    <div style="position: fixed; bottom: 50px; width: 100%; padding: 10px; background-color: #fff;">
-      <van-form @submit="send" style="display: flex; align-items: center;">
-        <van-cell-group inset>
-          <van-field
-              v-model="stats.text"
-              name="消息"
-              placeholder="发送消息"
-              :rules="[{ required: false, message: '' }]"
-              style="height: 50px; font-size: 18px; padding: 10px;"
-          />
-        </van-cell-group>
-        <div style="margin-right: 30px;">
-          <van-button type="success" native-type="submit" style="width: 70px; height: 40px;">
-            发送
-          </van-button>
-        </div>
-      </van-form>
-    </div>-->
+    <!--    <div style="position: fixed; bottom: 50px; width: 100%; padding: 10px; background-color: #fff;">
+          <van-form @submit="send" style="display: flex; align-items: center;">
+            <van-cell-group inset>
+              <van-field
+                  v-model="stats.text"
+                  name="消息"
+                  placeholder="发送消息"
+                  :rules="[{ required: false, message: '' }]"
+                  style="height: 50px; font-size: 18px; padding: 10px;"
+              />
+            </van-cell-group>
+            <div style="margin-right: 30px;">
+              <van-button type="success" native-type="submit" style="width: 70px; height: 40px;">
+                发送
+              </van-button>
+            </div>
+          </van-form>
+        </div>-->
 
   </div>
 
@@ -280,11 +280,8 @@ const onClickLeft = () => {
 
 const showUser = (id) => {
   router.push({
-    path: '/user/detail',
-    query: {
-      id: id
-    }
-  })
+    path: `/user/${id}`,
+  });
 }
 
 /**

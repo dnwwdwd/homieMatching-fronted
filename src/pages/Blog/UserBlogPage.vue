@@ -25,7 +25,7 @@
 
 <script setup lang="ts">
 import BlogCardList from "../../components/BlogCardList.vue";
-import {onMounted, ref, watchEffect} from "vue";
+import {onMounted, ref} from "vue";
 import myAxios from "../../plugins/myAxios";
 import {useRoute, useRouter} from "vue-router";
 import BlogUserIntro from "../../components/BlogUserIntro.vue";
@@ -93,8 +93,6 @@ const onClickLeft = () => {
 const onClickRight = () => {
   router.push('/search');
 };
-
-
 
 </script>
 
