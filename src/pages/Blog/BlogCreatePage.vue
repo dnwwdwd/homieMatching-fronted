@@ -112,7 +112,7 @@ const createBlog = async () => {
   const res : any = await myAxios.post('/blog/add', blog.value);
   if (res?.code === 0) {
     showToast('发布成功');
-    router.push({
+    router.replace({
       path: `/blog/detail/${res.data}`
     });
   } else {

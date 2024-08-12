@@ -18,6 +18,7 @@
 // 定义一个类型接口
 import myAxios from "../plugins/myAxios";
 import {showSuccessToast, showToast} from "vant";
+import {defineEmits} from "vue";
 
 interface MessageVOType {
   id: string;
@@ -25,15 +26,7 @@ interface MessageVOType {
   text: string;
 }
 
-// 定义组件的 props
-interface MessageVOCardListProps {
-  messageVOList: MessageVOType[]
-}
-
-// 提供默认值
-withDefaults(defineProps<MessageVOCardListProps>(), {
-  loading: true
-});
+const emit = defineEmits(['delete-message']);
 
 // 定义一个用于截断字符串的函数
 function truncateText(text: string, maxLength: number): string {
@@ -46,12 +39,23 @@ const deleteMessage = async (id) => {
     id: id
   });
   if (res?.code === 0) {
+    emit('delete-message');
     showSuccessToast('已删除');
   } else {
     showToast('删除失败');
   }
-
 };
+
+
+
+interface MessageVOCardListProps {
+  messageVOList: MessageVOType[]
+}
+
+withDefaults(defineProps<MessageVOCardListProps>(), {
+  loading: true
+});
+
 </script>
 
 <style scoped>

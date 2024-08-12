@@ -1,4 +1,5 @@
 <template>
+  <van-search v-model="searchText" placeholder="搜索博客" @search="onSearch"/>
   <blog-card-list :blogList="blogList" @delete-blog="deleteBlog"/>
   <van-empty v-show="!blogList || blogList.length < 1" description="还没有博客捏"/>
 </template>
@@ -16,6 +17,7 @@ const route = useRoute();
 
 const id = route.params.id;
 
+const searchText = ref('');
 
 onMounted(async () => {
   loadData();
@@ -23,6 +25,20 @@ onMounted(async () => {
 
 const loadData = async () => {
   const res: any = await myAxios.post(`/blog/user/${id}`, {
+    pageNum: 1,
+    pageSize: 8,
+  });
+  if (res?.code === 0) {
+    blogList.value = res.data;
+    showToast('查询成功');
+  } else {
+    showToast('查询失败');
+  }
+};
+
+const onSearch = async () => {
+  const res: any = await myAxios.post(`/blog/user/${id}`, {
+    title: searchText.value,
     pageNum: 1,
     pageSize: 8,
   });

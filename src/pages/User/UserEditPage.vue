@@ -32,7 +32,6 @@ const editUser = ref({
 })
 
 
-// values是表单中所有元素的值
 const onSubmit = async () => {
   const currentUser = await getCurrentUser();
   if (!currentUser) {
@@ -42,21 +41,18 @@ const onSubmit = async () => {
 
   const loginUser = await getCurrentUser();
 
-  // todo 把editKey，editName，editValue 提交到后台
   const res: any = await myAxios.post('/user/update', {
     'id': loginUser.id,
     [editUser.value.editKey as string]: editUser.value.currentValue,
   });
   if (res.data > 0) {
     showSuccessToast('修改成功');
-    router.push({
-      path: '/user/update',
-    }
-    );
+    router.push('/user/update');
   } else {
     showSuccessToast('修改错误' + (`${res.description}` ? `，${res.description}` : ''));
   }
 };
+
 </script>
 
 <style scoped>

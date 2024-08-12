@@ -48,9 +48,9 @@
 <script setup lang="ts">
 import {useRoute, useRouter} from "vue-router";
 import {onMounted, ref} from "vue";
-import {getCurrentUser} from "../../services/user.ts";
 import {showToast} from "vant";
 import myAxios from "../../plugins/myAxios";
+import {getCurrentUser} from "../../services/user";
 
 const route = useRoute();
 
@@ -59,7 +59,12 @@ const avatarUrl = ref('');
 const avatarUrlList = ref([]);
 
 onMounted(async () => {
-  user.value = await getCurrentUser();
+  const res : any = await myAxios.get('/user/current');
+  if (res?.code === 0) {
+    user.value = res.data;
+  } else {
+    showToast('获取失败');
+  }
   avatarUrlList.value.push({url: user.value.avatarUrl});
 });
 

@@ -54,7 +54,7 @@ onMounted(async () => {
       },
       series: [
         {
-          name: '2011',
+          name: '用户积分榜',
           type: 'bar',
           data: scoreList,
         }

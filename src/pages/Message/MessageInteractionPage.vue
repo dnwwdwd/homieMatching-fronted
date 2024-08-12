@@ -1,5 +1,5 @@
 <template>
-  <message-card-list :messageVOList="messageVOList" />
+  <message-card-list :messageVOList="messageVOList" @delete-message="deleteMessage"/>
   <van-empty v-if="!messageVOList || messageVOList.length < 1" description="暂无互动消息哦"/>
 </template>
 
@@ -17,6 +17,10 @@ const route = useRoute();
 const {type} = route.query;
 
 onMounted(async () => {
+  loadData();
+});
+
+const loadData = async () => {
   const res : any = await myAxios.post('/message/list', {
     type: type,
   });
@@ -25,7 +29,12 @@ onMounted(async () => {
   } else {
     showToast('查询失败');
   }
-});
+};
+
+const deleteMessage = async () => {
+  loadData();
+};
+
 </script>
 
 <style scoped>

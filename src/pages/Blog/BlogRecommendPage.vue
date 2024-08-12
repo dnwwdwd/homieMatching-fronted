@@ -1,4 +1,5 @@
 <template>
+  <van-search v-model="searchText" placeholder="搜索我的博客" @search="loadBlogList"/>
   <van-pull-refresh v-model="refreshed" @refresh="onRefresh">
     <van-list
         v-model:loading="loading"
@@ -19,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import {ref, watchEffect} from "vue";
+import {onMounted, ref, watchEffect} from "vue";
 import BlogIndexCardList from "../../components/BlogIndexCardList.vue";
 import {useRouter} from "vue-router";
 import myAxios from "../../plugins/myAxios";
@@ -33,33 +34,50 @@ const blogList = ref<BlogType[]>([]);  // 初始化为空数组
 const finished = ref(false);
 const loading = ref(false);
 const refreshed = ref(false);
+const searchText = ref('');
+
+let pageNum = 1;
+let pageSize = 4;
 
 const loadBlogList = async () => {
   const res: any = await myAxios.post('/blog/recommend', {
-    pageNum: 1,
-    pageSize: 20,
+    title: searchText.value,
+    pageNum: pageNum,
+    pageSize: pageSize,
   });
-  if (res?.code === 0) {
-    blogList.value = res?.data.map((blog: BlogType) => {
+  if (res?.code === 0 && res.data) {
+    const dataList = res?.data.map((blog: BlogType) => {
       if (blog.tags) {
         blog.tags = JSON.parse(blog.tags);
       }
       return blog;
     });
+    if (pageNum === 1) {
+      blogList.value = dataList;
+    } else {
+      blogList.value = [...blogList.value, ...dataList];
+    }
+    finished.value = dataList.length < pageSize;
   } else {
     showToast('加载失败');
   }
 };
 
-watchEffect(() => {
+onMounted(() => {
   loadBlogList();
 });
 
 const onLoad = () => {
-  loading.value = false;
+  if (finished.value) {
+    return;
+  }
+  pageNum++;
+  loadBlogList();
 };
 
 const onRefresh = async () => {
+  pageNum = 1;
+  finished.value = false;
   await loadBlogList();
   refreshed.value = false;
 };
