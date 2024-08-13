@@ -67,12 +67,13 @@ onMounted(() => {
   loadBlogList();
 });
 
-const onLoad = () => {
-  if (finished.value) {
-    return;
+const onLoad = async () => {
+  if (!finished.value) {
+    loading.value = true;
+    pageNum++;
+    await loadBlogList();
+    loading.value = false;
   }
-  pageNum++;
-  loadBlogList();
 };
 
 const onRefresh = async () => {

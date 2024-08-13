@@ -105,7 +105,7 @@
         <span class="data-text2">排名</span>
       </div>
       <div class="image-container">
-        <img class="icon" src="/src/assets/activity.png"/>
+        <img class="icon" src="/src/assets/activity.png" @click="toActivityPage"/>
         <span class="data-text2">创作活动</span>
       </div>
       <div class="image-container">
@@ -215,7 +215,11 @@ const toFeedbackPage = () => {
   router.push({
     path: '/homiematching/feedback'
   })
-}
+};
+
+const toActivityPage = () => {
+  router.push('/homiematching/activity');
+};
 
 // 退出登录
 const userLogout = async () => {

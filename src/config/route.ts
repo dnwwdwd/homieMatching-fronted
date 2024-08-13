@@ -23,6 +23,7 @@ import UserLikeBlogPage from "../pages/User/UserLikeBlogPage.vue";
 import UserViewedBlogPage from "../pages/User/UserViewedBlogPage.vue";
 import UserRegisterPage from "../pages/User/UserRegisterPage.vue";
 import FeedbackPage from "../pages/Other/FeedbackPage.vue";
+import ActivityPage from "../pages/Other/ActivityPage.vue";
 import SignInPage from "../pages/Other/SignInPage.vue";
 import TeamIntroPage from "../pages/Team/TeamIntroPage.vue";
 import RegisterTagsPage from "../pages/RegisterTagsPage.vue";
@@ -70,6 +71,7 @@ const routes = [
     {path: '/user/team/create', title: '我创建的队伍', component: UserTeamCreatePage},
     {path: '/user/sign/in', title: '签到', component: SignInPage},
     {path: '/homiematching/feedback', title: 'homie反馈', component: FeedbackPage},
+    {path: '/homiematching/activity', title: '创作活动', component: ActivityPage},
 ]
 
 export default routes;

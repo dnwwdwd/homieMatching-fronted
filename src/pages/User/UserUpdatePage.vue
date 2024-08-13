@@ -38,7 +38,6 @@
               @click="toEdit('longitude', '经度', user.longitude)"/>
     <van-cell title="维度" is-link to="/user/edit" :value="user?.dimension ? user.dimension : '未填写'"
               @click="toEdit('dimension', '维度', user.dimension)"/>
-    <van-cell title="编号" :value="user.planetCode"/>
     <van-cell title="注册时间" :value="user.createTime"/>
   </div>
 
@@ -50,7 +49,6 @@ import {useRoute, useRouter} from "vue-router";
 import {onMounted, ref} from "vue";
 import {showToast} from "vant";
 import myAxios from "../../plugins/myAxios";
-import {getCurrentUser} from "../../services/user";
 
 const route = useRoute();
 
@@ -59,7 +57,7 @@ const avatarUrl = ref('');
 const avatarUrlList = ref([]);
 
 onMounted(async () => {
-  const res : any = await myAxios.get('/user/current');
+  const res: any = await myAxios.get('/user/current');
   if (res?.code === 0) {
     user.value = res.data;
   } else {
