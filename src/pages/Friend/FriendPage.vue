@@ -21,7 +21,7 @@ const searchText = ref('');
 
 onMounted(async () => {
   loading.value = true;
-  const res = await myAxios.get('/friend/list');
+  const res : any = await myAxios.get('/friend/list');
   if (res?.code === 0) {
     res.data.forEach((user: UserType) =>{
       if (user.tags){

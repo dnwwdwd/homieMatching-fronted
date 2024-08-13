@@ -7,6 +7,8 @@ export type TeamType = {
     expireTime?: Date;
     maxNum: number;
     password?: string;
+    userId: number;
+    hasJoin: boolean;
     // todo定义为枚举类型
     status: number;
     createTime: Date;

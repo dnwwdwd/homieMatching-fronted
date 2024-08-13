@@ -1,29 +1,25 @@
 <template>
-  <van-nav-bar
-      :title="title"
-      left-arrow
-      @click-left="onClickLeft"
-      @click-right="onClickRight"
-  >
-    <template #right>
-      <van-icon name="search" size="18"/>
-    </template>
-  </van-nav-bar>
-  <van-notice-bar
-      left-icon="volume-o"
-      color="#1989fa" background="#ecf9ff"
-      text="欢迎使用homie匹配，在这里你可以寻找你的学习homie和生活homie甚至是灵魂伴侣，同时本系统支持匹配相同爱好的homie和聊天功能，但是要遵纪守法哦。最后欢迎大家提出反馈和建议！"
-  />
+  <van-sticky>
+    <van-nav-bar
+        :title="title"
+        left-arrow
+        @click-left="onClickLeft"
+        @click-right="onClickRight">
+      <template #right>
+        <van-icon name="search" size="18"/>
+      </template>
+    </van-nav-bar>
+  </van-sticky>
 
   <div id="cotent" style="padding-bottom: 50px">
     <router-view/>
   </div>
-
   <van-tabbar route @change="onChange">
     <van-tabbar-item to="/" icon="home-o" name="index">主页</van-tabbar-item>
-    <van-tabbar-item to="/friend" icon="friends-o" name="friend">好友</van-tabbar-item>
-    <van-tabbar-item to="/team" icon="search" name="team">队伍</van-tabbar-item>
-    <van-tabbar-item to="/user" icon="friends-o" name="user">用户</van-tabbar-item>
+    <van-tabbar-item to="/blog" icon="notes-o" name="friend">博客</van-tabbar-item>
+    <van-tabbar-item to="/message" icon="comment-o" name="message">消息</van-tabbar-item>
+    <van-tabbar-item to="/team" icon="flag-o" name="team">队伍</van-tabbar-item>
+    <van-tabbar-item to="/user/info" icon="friends-o" name="user">用户</van-tabbar-item>
   </van-tabbar>
 </template>
 <script setup lang="ts">
@@ -55,13 +51,16 @@ router.beforeEach((to, from) => {
 const onClickLeft = () => {
   router.back();
 }
+
 const onClickRight = () => {
   router.push('/search');
 };
+
 const onChange = () => {
 }
 
 </script>
+
 <style scoped>
 
 </style>

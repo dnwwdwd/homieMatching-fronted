@@ -1,4 +1,9 @@
 <template>
+  <van-notice-bar
+      left-icon="volume-o"
+      color="#1989fa" background="#ecf9ff"
+      text="欢迎使用homie匹配，在这里你可以寻找你的学习homie和生活homie甚至是灵魂伴侣，同时本系统支持匹配相同爱好的homie和聊天功能，但是要遵纪守法哦。最后欢迎大家提出反馈和建议！"
+  />
   <van-search v-model="searchText" placeholder="搜索附近用户" @search="onSearch(searchText)"/>
   <van-cell center title="心动模式">
     <template #right-icon>
@@ -67,7 +72,7 @@ const loadData = async () => {
 
   } else {
     userListData = await myAxios.get('/user/recommend', {
-      params: { pageSize: 3, pageNum },
+      params: { pageSize: 4, pageNum },
     }).then(response => {
       console.log('/user/recommend succeed', response);
       return response?.data;
@@ -113,7 +118,7 @@ const onSearch = async (searchText: string) => {
   let userListData;
   loading.value = true;
 
-  const res = await myAxios.get('/user/searchNearby', {
+  const res : any = await myAxios.get('/user/searchNearby', {
     params: { radius: searchText }
   });
 

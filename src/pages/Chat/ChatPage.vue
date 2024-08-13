@@ -15,31 +15,31 @@
           center
           clearable
           placeholder="聊点什么吧...."
-      >
+          @keydown.enter="send">
         <template #button style="margin-bottom: 100px">
           <van-button size="small" type="primary" @click="send" style="margin-right: 16px">发送</van-button>
         </template>
       </van-field>
     </van-cell-group>
 
-<!--    <div style="position: fixed; bottom: 50px; width: 100%; padding: 10px; background-color: #fff;">
-      <van-form @submit="send" style="display: flex; align-items: center;">
-        <van-cell-group inset>
-          <van-field
-              v-model="stats.text"
-              name="消息"
-              placeholder="发送消息"
-              :rules="[{ required: false, message: '' }]"
-              style="height: 50px; font-size: 18px; padding: 10px;"
-          />
-        </van-cell-group>
-        <div style="margin-right: 30px;">
-          <van-button type="success" native-type="submit" style="width: 70px; height: 40px;">
-            发送
-          </van-button>
-        </div>
-      </van-form>
-    </div>-->
+    <!--    <div style="position: fixed; bottom: 50px; width: 100%; padding: 10px; background-color: #fff;">
+          <van-form @submit="send" style="display: flex; align-items: center;">
+            <van-cell-group inset>
+              <van-field
+                  v-model="stats.text"
+                  name="消息"
+                  placeholder="发送消息"
+                  :rules="[{ required: false, message: '' }]"
+                  style="height: 50px; font-size: 18px; padding: 10px;"
+              />
+            </van-cell-group>
+            <div style="margin-right: 30px;">
+              <van-button type="success" native-type="submit" style="width: 70px; height: 40px;">
+                发送
+              </van-button>
+            </div>
+          </van-form>
+        </div>-->
 
   </div>
 
@@ -110,9 +110,17 @@ onMounted(async () => {
   stats.value.team.teamId = Number.parseInt(teamId)
   stats.value.chatUser.username = username
   stats.value.team.teamName = teamName
-  stats.value.chatType = stats.value.chatEnum.PRIVATE_CHAT
-  title.value = stats.value.chatUser.username
-  stats.value.user = await getCurrentUser()
+  if (userType && Number.parseInt(userType) === stats.value.chatEnum.PRIVATE_CHAT) {
+    stats.value.chatType = stats.value.chatEnum.PRIVATE_CHAT
+    title.value = stats.value.chatUser.username
+  } else if (teamType && Number.parseInt(teamType) === stats.value.chatEnum.TEAM_CHAT) {
+    stats.value.chatType = stats.value.chatEnum.TEAM_CHAT
+    title.value = stats.value.team.teamName
+  } else {
+    stats.value.chatType = stats.value.chatEnum.HALL_CHAT
+    title.value = "公共聊天室"
+  }
+  stats.value.user = await getCurrentUser();
 
 
   // 私聊
@@ -130,29 +138,32 @@ onMounted(async () => {
       }
     })
   }
-  // if (stats.value.chatType === stats.value.chatEnum.HALL_CHAT) {
-  //   const hallMessage = await myAxios.get("/chat/hallChat")
-  //   hallMessage.data.data.forEach(chat => {
-  //     if (chat.isMy === true) {
-  //       createContent(null, chat.fromUser, chat.text)
-  //     } else {
-  //       createContent(chat.fromUser, null, chat.text, chat.isAdmin, chat.createTime)
-  //     }
-  //   })
-  // }
-  // if (stats.value.chatType === stats.value.chatEnum.TEAM_CHAT) {
-  //   const teamMessage = await myAxios.post("/chat/teamChat",
-  //       {
-  //         teamId: stats.value.team.teamId
-  //       })
-  //   teamMessage.data.data.forEach(chat => {
-  //     if (chat.isMy === true) {
-  //       createContent(null, chat.fromUser, chat.text)
-  //     } else {
-  //       createContent(chat.fromUser, null, chat.text, chat.isAdmin, chat.createTime)
-  //     }
-  //   })
-  // }
+  // 大厅聊天
+  if (stats.value.chatType === stats.value.chatEnum.HALL_CHAT) {
+    const hallMessage = await myAxios.get("/chat/hallChat")
+    hallMessage.data.forEach(chat => {
+      if (chat.isMy === true) {
+        createContent(null, chat.fromUser, chat.text)
+      } else {
+        createContent(chat.fromUser, null, chat.text, chat.isAdmin, chat.createTime)
+      }
+    })
+  }
+
+  // 队伍聊天
+  if (stats.value.chatType === stats.value.chatEnum.TEAM_CHAT) {
+    const teamMessage = await myAxios.post("/chat/teamChat",
+        {
+          teamId: stats.value.team.teamId
+        })
+    teamMessage.data.forEach(chat => {
+      if (chat.isMy === true) {
+        createContent(null, chat.fromUser, chat.text)
+      } else {
+        createContent(chat.fromUser, null, chat.text, chat.isAdmin, chat.createTime)
+      }
+    })
+  }
   init()
   await nextTick()
   const lastElement = chatRoom.value.lastElementChild
@@ -269,11 +280,8 @@ const onClickLeft = () => {
 
 const showUser = (id) => {
   router.push({
-    path: '/user/detail',
-    query: {
-      id: id
-    }
-  })
+    path: `/user/${id}`,
+  });
 }
 
 /**
