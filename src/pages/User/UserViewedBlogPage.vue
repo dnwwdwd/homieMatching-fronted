@@ -1,5 +1,5 @@
 <template>
-  <blog-card-list :blogList="blogList"/>
+  <blog-card-list :blogList="blogList" @delete-blog="deleteBlog"/>
   <van-empty v-show="!blogList || blogList.length < 1" description="您还未浏览过任何一篇博客" />
 </template>
 
@@ -16,9 +16,7 @@ const route = useRoute();
 
 const id = route.params.id;
 
-
-watchEffect(async () => {
-
+const loadData = async () => {
   const res: any = await myAxios.post('/blog/interaction/list', {
     pageNum: 1,
     pageSize: 20,
@@ -29,7 +27,15 @@ watchEffect(async () => {
   } else {
     showToast('查询失败');
   }
+};
+
+watchEffect(async () => {
+  loadData();
 });
+
+const deleteBlog = async () => {
+  loadData();
+};
 </script>
 
 <style scoped>

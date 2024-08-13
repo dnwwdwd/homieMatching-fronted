@@ -1,5 +1,5 @@
 <template>
-  <blog-card-list :blogList="blogList"/>
+  <blog-card-list :blogList="blogList" @delete-blog="deleteBlog"/>
   <van-empty v-show="!blogList || blogList.length < 1" description="您还未收藏过任何一篇博客" />
 </template>
 
@@ -16,9 +16,7 @@ const route = useRoute();
 
 const id = route.params.id;
 
-
-onMounted(async () => {
-
+const loadData = async () => {
   const res: any = await myAxios.post('/blog/interaction/list', {
     pageNum: 1,
     pageSize: 20,
@@ -29,7 +27,16 @@ onMounted(async () => {
   } else {
     showToast('查询失败');
   }
+};
+
+onMounted(async () => {
+  loadData();
 });
+
+const deleteBlog = async () => {
+  loadData();
+};
+
 </script>
 
 <style scoped>

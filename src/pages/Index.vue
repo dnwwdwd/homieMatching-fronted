@@ -72,7 +72,7 @@ const loadData = async () => {
 
   } else {
     userListData = await myAxios.get('/user/recommend', {
-      params: { pageSize: 3, pageNum },
+      params: { pageSize: 4, pageNum },
     }).then(response => {
       console.log('/user/recommend succeed', response);
       return response?.data;

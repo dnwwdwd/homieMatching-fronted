@@ -77,8 +77,9 @@ const onLoad = async () => {
 };
 
 const onRefresh = async () => {
-  pageNum = 1;
+  blogList.value = [];
   finished.value = false;
+  pageNum = 1;
   await loadBlogList();
   refreshed.value = false;
 };
