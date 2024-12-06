@@ -2,11 +2,12 @@ import axios from 'axios';
 
 const isDev = process.env.NODE_ENV === 'development';
 
-export const URL = '线上地址';
+export const URL = '后端地址:后端端口';
 
 const myAxios = axios.create({
     baseURL: isDev ? 'http://localhost:8080/api' : '线上地址',
 })
+
 
 myAxios.defaults.withCredentials = true; //设置为true
 
