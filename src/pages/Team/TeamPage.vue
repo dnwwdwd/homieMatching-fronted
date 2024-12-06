@@ -32,7 +32,7 @@ const doAddTeam = () => {
   router.push({
     path: "/team/add"
   })
-}
+};
 
 const teamList = ref([]);
 

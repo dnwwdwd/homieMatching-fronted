@@ -5,8 +5,7 @@
         :desc="team.description"
         :thumb="(newTeamAvatarUrl ? `https://bpic.588ku.com/element_origin_min_pic/19/03/07/1c1f8a60faf89fd97b0832baab0db608.jpg` : `newTeamAvatarUrl`)"
         :title="`${team.teamName}`"
-        @click="doTeamIntro(team)"
-    >
+        @click="doTeamIntro(team)">
       <template #tags>
         <van-tag plain type="danger" stysle="margin-right: 8px; margin-top: 8px">
           {{ teamStatusEnum[team.status] }}
@@ -27,7 +26,7 @@
         <van-button size="mini" color="#1989FA" v-if="team.userId !== currentUser?.id  && !team.hasJoin"
                     @click.stop="preJoinTeam(team)">
           加入队伍</van-button>
-        <van-button v-if="team.userId === currentUser?.id" size="mini" color="#1989FA" @click.stop="doUpdateTeam(team.id)">更新队伍</van-button>
+        <van-button  v-if="team.userId === currentUser?.id" size="mini" color="#1989FA" @click.stop="doUpdateTeam(team.id)">更新队伍</van-button>
         <van-button size="mini" v-if="team.hasJoin" color="#1989FA" @click.stop="doQuitTeam(team.id)">退出队伍</van-button>
         <van-button v-if="team.userId === currentUser?.id" size="mini" type="danger" plain @click.stop="doDeleteTeam(team.id)">解散队伍</van-button>
       </template>
@@ -52,7 +51,7 @@
   import {mapState} from "vuex";
 
   interface TeamCardListProps{
-    teamList: TeamType;
+    teamList: TeamType[];
   }
   defineProps<TeamCardListProps>();
 
@@ -67,7 +66,7 @@
 
   onMounted(async () => {
     currentUser.value = await getCurrentUser();
-  })
+  });
 
   const preJoinTeam = (team: TeamType) => {
     joinTeamId.value = team.id;
@@ -106,7 +105,7 @@
   }
 
   /**
-   * 调到更新队伍页
+   * 跳到更新队伍页
    */
   const doUpdateTeam = (id: number) => {
     router.push({
@@ -158,7 +157,6 @@
       }
     })
   }
-
 
   </script>
 

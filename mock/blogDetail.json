@@ -1,0 +1,23 @@
+{
+  id: 9,
+  title: 'Java Spring Boot',
+  content: 'Java Spring Boot Redis MySQL Vue React',
+  coverImage: '',
+  images: '',
+  tags: '',
+  viewNum: 0,
+  likeNum: 0,
+  starNum: 0,
+  commentNum: 0,
+  blogUser: {
+    id: 0,
+    username: 'C1own',
+    avatarUrl: 'https://www.keaitupian.cn/cjpic/frombd/0/253/936677050/470164789.jpg',
+    profile: '你好哇，我是牛马何佳骏何佳骏何佳骏何佳骏何佳骏何佳骏何佳骏',
+    fanNum: 0,
+    blogNum: 0,
+    viewNum: 0,
+    tags: ['java', 'python', 'go', 'Redis', '单身'],
+  },
+  createTime: ''
+}

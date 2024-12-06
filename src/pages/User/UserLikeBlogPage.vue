@@ -1,7 +1,6 @@
 <template>
-  <van-search v-model="searchText" placeholder="搜索博客" @search="onSearch"/>
   <blog-card-list :blogList="blogList" @delete-blog="deleteBlog"/>
-  <van-empty v-show="!blogList || blogList.length < 1" description="还没有博客捏"/>
+  <van-empty v-show="!blogList || blogList.length < 1" description="您还未点赞过任何一篇博客" />
 </template>
 
 <script setup lang="ts">
@@ -17,45 +16,29 @@ const route = useRoute();
 
 const id = route.params.id;
 
-const searchText = ref('');
+const loadData = async () => {
+  const res: any = await myAxios.post('/blog/interaction/list', {
+    pageNum: 1,
+    pageSize: 20,
+    type: 1,
+  });
+  if (res?.code === 0) {
+    blogList.value = res.data;
+  } else {
+    showToast('查询失败');
+  }
+};
 
 onMounted(async () => {
   loadData();
 });
 
-const loadData = async () => {
-  const res: any = await myAxios.post(`/blog/user/${id}`, {
-    pageNum: 1,
-    pageSize: 8,
-  });
-  if (res?.code === 0) {
-    blogList.value = res.data;
-    showToast('查询成功');
-  } else {
-    showToast('查询失败');
-  }
-};
-
-const onSearch = async () => {
-  const res: any = await myAxios.post(`/blog/user/${id}`, {
-    title: searchText.value,
-    pageNum: 1,
-    pageSize: 8,
-  });
-  if (res?.code === 0) {
-    blogList.value = res.data;
-    showToast('查询成功');
-  } else {
-    showToast('查询失败');
-  }
-};
-
 const deleteBlog = async () => {
   loadData();
 };
+
 </script>
 
 <style scoped>
-
 
 </style>
