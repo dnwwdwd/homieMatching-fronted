@@ -27,21 +27,21 @@
           @click="showPicker = true"
       />
       <van-popup v-model:show="showPicker" position="bottom">
-        <van-date-picker @confirm="onConfirm" @cancel="showPicker = false" />
+        <van-date-picker @confirm="onConfirm" @cancel="showPicker = false"/>
       </van-popup>
-<!--      <van-picker-group
-          title=" 过期时间"
-          :tabs="['选择过期日期', '请选择过期时间']"
-          @confirm="onConfirm"
-          @cancel="showPicker = false"
-      >
-        <van-date-picker
-            v-model="currentDate"
-            :min-date="minDate"
-            :max-date="maxDate"
-        />
-        <van-time-picker v-model="updateTeamData.expireTime" />
-      </van-picker-group>-->
+      <!--      <van-picker-group
+                title=" 过期时间"
+                :tabs="['选择过期日期', '请选择过期时间']"
+                @confirm="onConfirm"
+                @cancel="showPicker = false"
+            >
+              <van-date-picker
+                  v-model="currentDate"
+                  :min-date="minDate"
+                  :max-date="maxDate"
+              />
+              <van-time-picker v-model="updateTeamData.expireTime" />
+            </van-picker-group>-->
 
       <van-field name="stepper" label="最大人数">
         <template #input>
@@ -98,7 +98,7 @@ const initFormData = {
 const addTeamData = ref({...initFormData}); // 拓展对象运算符
 
 const showPicker = ref(false);
-const onConfirm = ({ selectedValues }) => {
+const onConfirm = ({selectedValues}) => {
   const currentTime = new Date().toLocaleTimeString();
   addTeamData.value.expireTime = Date.parse(selectedValues.join('-') + ' ' + currentTime);
   showPicker.value = false;
