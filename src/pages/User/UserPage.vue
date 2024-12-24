@@ -123,7 +123,7 @@
       <van-tabbar-item to="/blog" icon="notes-o" name="friend">博客</van-tabbar-item>
       <van-tabbar-item to="/message" icon="comment-o" name="message">消息</van-tabbar-item>
       <van-tabbar-item to="/team" icon="flag-o" name="team">队伍</van-tabbar-item>
-      <van-tabbar-item to="/user" icon="friends-o" name="user">用户</van-tabbar-item>
+      <van-tabbar-item to="/user/info" icon="friends-o" name="user">用户</van-tabbar-item>
     </van-tabbar>
   </van-sticky>
 </template>

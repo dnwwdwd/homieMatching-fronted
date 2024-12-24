@@ -2,7 +2,7 @@
   <van-skeleton title avatar :row="3" :loading="loading" v-for="user in userList">
   <van-card
       :desc="user.profile"
-      :title="`${user.username}(${user.planetCode})`"
+      :title="`${user.username}`"
       :price="`${user.distance} km`"
       currency=""
       :thumb="user.avatarUrl"

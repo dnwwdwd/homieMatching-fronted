@@ -23,7 +23,6 @@
     <van-cell title="邮箱" :value="userInfo.email ? userInfo.email : '该用户很懒，未填写'" icon="envelop-o"/>
     <van-cell title="距离" :value="userInfo.distance ? userInfo.distance : `该用户似乎离你很远`" icon="location-o" />
 
-
   <div style="text-align: center; margin-top: 10px;">
     <van-button icon="plus" type="success" text="添加好友" size="normal" style="border-radius: 10px; margin-top: 10px" @click="addFriend"/>
     <!--    <van-button icon="minus" type="primary" text="私聊" size="small"/>-->
