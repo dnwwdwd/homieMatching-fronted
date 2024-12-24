@@ -61,7 +61,7 @@ const routes = [
     {path: '/user/setting', title: '个人页面', component: UserSettingPage},
     {path: '/search', title: '搜索', component: SearchPage},
     {path: '/user/listByTag', title: '搜索结果', component: SearchResultPage},
-    {path: '/user/intro', title: '用户详情', component: UserIntroPage, meta: {layout: 'user-intro'}},
+    {path: '/user/intro/:id', title: '用户详情', component: UserIntroPage, meta: {layout: 'user-intro'}},
     {path: '/user/edit', title: '编辑信息', component: UserEditPage},
     {path: '/user/login', title: '登录', component: UserLoginPage, meta: {layout: 'login'}},
     {path: '/user/register', title: '注册', component: UserRegisterPage, meta: {layout: 'register'}},

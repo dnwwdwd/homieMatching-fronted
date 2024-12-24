@@ -4,7 +4,6 @@
       :desc="user.profile"
       :title="`${user.username}`"
       :price="`${user.distance} km`"
-      currency=""
       :thumb="user.avatarUrl"
   >
     <template #tags>
@@ -13,7 +12,7 @@
       </van-tag>
     </template>
     <template #footer>
-      <van-button size="mini" @click="toIntroUser(user)">联系我</van-button>
+      <van-button size="mini" @click="toIntroUser(user.id)">联系我</van-button>
     </template>
   </van-card>
   </van-skeleton>
@@ -34,13 +33,8 @@
     loading: true,
   })
 
-  const toIntroUser = (user: UserType) => {
-    router.push({
-      path: '/user/intro',
-      query: {
-        userInfoParam: JSON.stringify(user)
-      }
-    });
+  const toIntroUser = (id: number) => {
+    router.push(`/user/intro/${id}`);
   }
 
   </script>
