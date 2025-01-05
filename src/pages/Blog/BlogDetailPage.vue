@@ -111,6 +111,7 @@ watchEffect(async () => {
   }
 });
 
+
 const likeBlog = async (id, isLiked) => {
   const res: any = await myAxios.post('/blog/like', {
     blogId: id,
